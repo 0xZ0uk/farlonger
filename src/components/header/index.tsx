@@ -24,13 +24,13 @@ export default function Header() {
           <Navigation />
         </div>
         <div className="flex items-center gap-2">
-          <ModeToggle />
-          {!!isAuthenticated && <AuthorizedUser />}
           {!isAuthenticated && (
             <div className="scale-75">
               <SignInButton />
             </div>
           )}
+          <ModeToggle />
+          {!!isAuthenticated && <AuthorizedUser />}
         </div>
       </div>
     </header>

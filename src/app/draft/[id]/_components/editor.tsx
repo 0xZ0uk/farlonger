@@ -7,6 +7,8 @@ import Heading from "@tiptap/extension-heading";
 import Text from "@tiptap/extension-text";
 import Placeholder from "@tiptap/extension-placeholder";
 import React from "react";
+import { Button } from "@/components/ui/button";
+import { ImageIcon } from "lucide-react";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -17,7 +19,7 @@ export const Editor: React.FC = () => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none dark:prose-invert",
+          "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none dark:prose-invert",
       },
     },
     extensions: [
@@ -28,7 +30,11 @@ export const Editor: React.FC = () => {
           class: "font-bold placeholder:text-muted-foreground",
         },
       }),
-      Paragraph,
+      Paragraph.configure({
+        HTMLAttributes: {
+          class: "leading-relaxed text-base",
+        },
+      }),
       Text,
       Placeholder.configure({
         showOnlyWhenEditable: false,
@@ -50,5 +56,21 @@ export const Editor: React.FC = () => {
     return null;
   }
 
-  return <EditorContent editor={editor} />;
+  return (
+    <>
+      <div className="mb-12">
+        <div className="button-group">
+          <Button
+            size={"sm"}
+            className="gap-2 rounded-full"
+            onClick={() => console.log("todo")}
+          >
+            <ImageIcon className="h-4 w-4" />
+            Add image
+          </Button>
+        </div>
+      </div>
+      <EditorContent editor={editor} />
+    </>
+  );
 };
