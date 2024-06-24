@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthProvider from "./_components/auth-provider";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata = {
   title: "FarLonger",
@@ -32,6 +33,7 @@ export default function RootLayout({
             >
               <Header />
               {children}
+              <Toaster />
             </ThemeProvider>
           </AuthProvider>
         </TRPCReactProvider>
