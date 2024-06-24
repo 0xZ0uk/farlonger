@@ -16,7 +16,7 @@ export default function Header() {
     <header className="flex items-center justify-center border-b border-muted-foreground/20 bg-muted py-2">
       <div className="flex w-10/12 items-center justify-between">
         <div>
-          <Link href="/" className="font-bold">
+          <Link href="/" className="text-xl font-bold">
             <span className="text-primary">Far</span>Longer
           </Link>
         </div>

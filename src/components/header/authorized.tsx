@@ -1,9 +1,10 @@
 import * as React from "react";
 import { BellIcon, PenLineIcon, SearchIcon } from "lucide-react";
+import Link from "next/link";
+import { nanoid } from "nanoid";
 
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { AvatarMenu } from "./avatar-menu";
+import { AvatarMenu } from "@/components/header/avatar-menu";
 
 export const AuthorizedUser: React.FC = () => {
   return (
@@ -14,10 +15,12 @@ export const AuthorizedUser: React.FC = () => {
       <Button variant="ghost" size="icon" className="rounded-full">
         <BellIcon className="h-4 w-4" />
       </Button>
-      <Button className="gap-2">
-        <PenLineIcon className="h-4 w-4" />
-        Write
-      </Button>
+      <Link href={`/draft/${nanoid()}`}>
+        <Button className="gap-2">
+          <PenLineIcon className="h-4 w-4" />
+          Write
+        </Button>
+      </Link>
       <AvatarMenu />
     </div>
   );

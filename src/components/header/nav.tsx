@@ -57,7 +57,7 @@ export function Navigation() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/feed" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               My Feed
             </NavigationMenuLink>
