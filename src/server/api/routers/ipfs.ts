@@ -11,13 +11,8 @@ export const ipfsRouter = createTRPCRouter({
   store: publicProcedure
     .input(z.object({ title: z.string().min(1), content: z.string().min(1) }))
     .mutation(async ({ input }) => {
-      const { content } = input;
-      const { fileCid, dirCid } = await storePostOnIPFS({
-        title: input.title,
-        content: content,
-        author: "Pedro Santana",
-      });
-      return { cid: fileCid.toString(), dirCid: dirCid.toString() };
+      const { fileCid } = await storePostOnIPFS(input.content);
+      return { cid: fileCid.toString() };
     }),
   getByCID: publicProcedure
     .input(z.object({ cid: z.string().min(1) }))

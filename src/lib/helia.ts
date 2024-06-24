@@ -10,25 +10,11 @@ const helia = await createHelia({
 
 const j = json(helia);
 
-export async function storePostOnIPFS(post: {
-  title: string;
-  content: string;
-  author: string;
-}) {
-  const fs = unixfs(helia);
-
-  const emptyDirCid = await fs.addDirectory();
-
-  const fileCid = await j.add(post.content);
-  const updateDirCid = await fs.cp(
-    fileCid,
-    emptyDirCid,
-    post.title.toLowerCase().replace(/\s+/g, "-").concat(".json"),
-  );
+export async function storePostOnIPFS(content: string) {
+  const fileCid = await j.add(content);
 
   return {
     fileCid,
-    dirCid: updateDirCid,
   };
 }
 

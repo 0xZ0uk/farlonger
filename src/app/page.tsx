@@ -9,7 +9,7 @@ import React from "react";
 
 export default function Home() {
   const { data: post } = api.ipfs.getByCID.useQuery({
-    cid: "bafkreifuanonajr5cxigwokmr3jfsqorld3qkgz7bmzrhkcgqgyl7ph4ee",
+    cid: "bagaaieramjq3xdothodhcwey3nyu5lwzofqpekhky3jlejjcqz5cne6bnrva",
   });
 
   React.useEffect(() => {
