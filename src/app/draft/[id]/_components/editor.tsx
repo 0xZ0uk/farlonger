@@ -11,6 +11,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
+import { api } from "@/trpc/react";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -20,6 +21,12 @@ export const Editor: React.FC = () => {
   const [content, setContent] = React.useState<JSONContent | undefined>(
     undefined,
   );
+
+  const { mutate } = api.ipfs.store.useMutation({
+    onSuccess: () => {
+      toast("Published!");
+    },
+  });
 
   const editor = useEditor({
     editorProps: {
@@ -77,8 +84,10 @@ export const Editor: React.FC = () => {
   };
 
   const handlePublish = () => {
-    console.log("published::", content);
-    toast("Published!");
+    mutate({
+      title: "Hello World",
+      content: JSON.stringify(content),
+    });
   };
 
   return (

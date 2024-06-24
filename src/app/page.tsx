@@ -2,31 +2,20 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PostCard from "./_components/post-card";
-import {
-  BookmarkIcon,
-  PenLineIcon,
-  SparklesIcon,
-  UsersIcon,
-} from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
+import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
+import { api } from "@/trpc/react";
+import React from "react";
 
 export default function Home() {
+  const { data: post } = api.ipfs.getByCID.useQuery({
+    cid: "bafkreifuanonajr5cxigwokmr3jfsqorld3qkgz7bmzrhkcgqgyl7ph4ee",
+  });
+
+  React.useEffect(() => {
+    console.log("post::", post);
+  }, [post]);
+
   return (
     <main className="flex flex-col items-center justify-center">
       <section className="mt-12 flex w-10/12 gap-8">
