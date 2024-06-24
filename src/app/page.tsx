@@ -29,7 +29,7 @@ import Sidebar from "@/components/sidebar";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center">
-      <section className="mt-12 flex w-9/12 gap-8">
+      <section className="mt-12 flex w-10/12 gap-8">
         <div className="basis-2/3">
           <Tabs defaultValue="for-you" className="w-full">
             <TabsList className="mb-4">

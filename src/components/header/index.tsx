@@ -1,40 +1,37 @@
 "use client";
 
 import { SignInButton, useProfile } from "@farcaster/auth-kit";
-import { Button } from "@/components/ui/button";
 import { Navigation } from "./nav";
-import { PenLineIcon } from "lucide-react";
+import { AuthorizedUser } from "./authorized";
+import { ModeToggle } from "./mode-toggle";
+import Link from "next/link";
 
 export default function Header() {
   const {
-    // isAuthenticated,
+    isAuthenticated,
     profile: { username, fid },
   } = useProfile();
 
-  const isAuthenticated = true;
-
   return (
-    <header className="flex items-center justify-between border-b border-muted-foreground/20 bg-muted px-8 py-2">
-      <div>
-        <p className="font-bold">FarLonger</p>
-      </div>
-      <div>
-        <Navigation />
-      </div>
-      <div className="flex items-center gap-2">
-        {!!isAuthenticated && (
-          <Button className="gap-2">
-            <PenLineIcon className="h-4 w-4" />
-            Write
-          </Button>
-        )}
-        {!isAuthenticated ? (
-          <div className="scale-75">
-            <SignInButton />
-          </div>
-        ) : (
-          <div>{username}</div>
-        )}
+    <header className="flex items-center justify-center border-b border-muted-foreground/20 bg-muted py-2">
+      <div className="flex w-10/12 items-center justify-between">
+        <div>
+          <Link href="/" className="font-bold">
+            <span className="text-primary">Far</span>Longer
+          </Link>
+        </div>
+        <div>
+          <Navigation />
+        </div>
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          {!!isAuthenticated && <AuthorizedUser />}
+          {!isAuthenticated && (
+            <div className="scale-75">
+              <SignInButton />
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
