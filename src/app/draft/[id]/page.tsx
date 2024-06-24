@@ -1,5 +1,4 @@
 import { Editor } from "./_components/editor";
-import { Write } from "./_components/write";
 
 export async function generateStaticParams() {
   return [
