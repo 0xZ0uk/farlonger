@@ -12,9 +12,17 @@ export default function Home() {
     cid: "bagaaieramjq3xdothodhcwey3nyu5lwzofqpekhky3jlejjcqz5cne6bnrva",
   });
 
+  const { data: casts } = api.farcaster.getCastsByFID.useQuery({
+    fid: "2",
+  });
+
   React.useEffect(() => {
     console.log("post::", post);
   }, [post]);
+
+  React.useEffect(() => {
+    console.log("casts::", casts);
+  }, [casts]);
 
   return (
     <main className="flex flex-col items-center justify-center">

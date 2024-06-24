@@ -8,6 +8,8 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    FARCASTER_HUB_URL: z.string(),
+    FARCASTER_HUB_URL_BACKUP: z.string(),
   },
 
   /**
@@ -25,6 +27,8 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    FARCASTER_HUB_URL: process.env.FARCASTER_HUB_URL,
+    FARCASTER_HUB_URL_BACKUP: process.env.FARCASTER_HUB_URL_BACKUP,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

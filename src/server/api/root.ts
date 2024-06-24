@@ -1,5 +1,6 @@
 import { ipfsRouter } from "@/server/api/routers/ipfs";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { farcasterRouter } from "./routers/farcaster";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   ipfs: ipfsRouter,
+  farcaster: farcasterRouter,
 });
 
 // export type definition of API
