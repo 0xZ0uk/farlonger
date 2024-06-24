@@ -1,4 +1,5 @@
-import { TitleInput } from "./_components/title-input";
+import { Editor } from "./_components/editor";
+import { Write } from "./_components/write";
 
 export async function generateStaticParams() {
   return [
@@ -11,8 +12,11 @@ export async function generateStaticParams() {
 export default function DraftPage({ params }: { params: { id: string } }) {
   return (
     <main className="flex w-full flex-col items-center justify-center">
-      <section className="mt-12 flex w-10/12">
-        <TitleInput />
+      <section className="flex w-10/12 gap-12">
+        <div className="h-[calc(100vh-4rem)] basis-1/4 border-r"></div>
+        <div className="basis-3/4 pt-12">
+          <Editor />
+        </div>
       </section>
     </main>
   );

@@ -13,7 +13,7 @@ export default function Header() {
   } = useProfile();
 
   return (
-    <header className="flex items-center justify-center border-b border-muted-foreground/20 bg-muted py-2">
+    <header className="flex h-16 items-center justify-center border-b border-muted-foreground/20 bg-muted">
       <div className="flex w-10/12 items-center justify-between">
         <div>
           <Link href="/" className="text-xl font-bold">
