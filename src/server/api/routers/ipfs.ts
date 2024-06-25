@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { z } from "zod";
-import { storePostOnIPFS, retrievePostFromIPFS } from "@/lib/helia";
+import { retrievePostFromIPFS } from "@/lib/helia";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { Post } from "@/types/core";
+import type { Post } from "@/types/core";
+import { pinJSONToIPFS } from "@/lib/ipfs";
 
 export const ipfsRouter = createTRPCRouter({
   store: publicProcedure
@@ -19,8 +21,8 @@ export const ipfsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      const { fileCid } = await storePostOnIPFS(input as Post);
-      return { cid: fileCid.toString() };
+      const pin = await pinJSONToIPFS(input as Post);
+      return { cid: pin.IpfsHash };
     }),
   getByCID: publicProcedure
     .input(z.object({ cid: z.string().min(1) }))

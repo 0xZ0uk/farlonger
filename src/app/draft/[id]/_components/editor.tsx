@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
 import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
-import { useRouter } from "next/navigation";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -22,7 +21,6 @@ const CustomDocument = Document.extend({
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
-  const router = useRouter();
 
   const [content, setContent] = React.useState<JSONContent | undefined>(
     undefined,
@@ -30,8 +28,11 @@ export const Editor: React.FC = () => {
 
   const { mutate: storeIPFS } = api.ipfs.store.useMutation({
     onSuccess: (data) => {
-      router.push(
+      console.log("data::", data);
+
+      window.open(
         `https://warpcast.com/~/compose?text=Cid%3A%20${data.cid}&fid=${profile?.fid}`,
+        "_blank",
       );
     },
   });
