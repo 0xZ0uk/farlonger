@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 // App router includes @vercel/og.
 // No need to install it.
@@ -19,9 +20,18 @@ export async function GET(request: Request) {
 
     const title = hasTitle
       ? searchParams.get("title")?.slice(0, 100)
-      : "My default title";
+      : "Building FarLonger, with Farcaster and IPFS";
 
-    const description = searchParams.get("description");
+    const description =
+      searchParams.get("description") ??
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus urna sem, eleifend sit amet molestie a, congue ac ligula. Proin.";
+
+    const authorPfp =
+      searchParams.get("pfp") ??
+      "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4a0215ca-c788-4164-e949-483c1116f200/rectcrop3";
+
+    const name = searchParams.get("name") ?? "Pedro Santana";
+    const username = searchParams.get("username") ?? "z0uk";
 
     return new ImageResponse(
       (
@@ -37,32 +47,74 @@ export async function GET(request: Request) {
             backgroundColor: "#16101E",
           }}
         >
-          <div tw="flex w-full h-full flex-col items-start justify-start p-8">
+          <div tw="flex w-full h-full flex-col items-start justify-between p-8">
             <p
               tw="text-white text-lg font-bold"
               style={{ fontFamily: "Poppins Bold" }}
             >
               <span tw="text-[#7d66c2]">Far</span>Longer
             </p>
-            <h1
-              style={{
-                fontFamily: "Poppins Bold",
-              }}
-              tw="text-white py-0 text-7xl font-bold"
-            >
-              {title}
-            </h1>
-            {!!description && (
-              <p tw="text-white/50 text-lg" style={{ fontFamily: "Open Sans" }}>
-                {description}
-              </p>
-            )}
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <div
+                style={{ display: "flex", gap: 20, alignItems: "center" }}
+                tw="mb-8"
+              >
+                {!!authorPfp && (
+                  <img
+                    width="256"
+                    height="256"
+                    src={authorPfp}
+                    alt={"author"}
+                    tw="object-cover w-24 h-24 rounded-full"
+                  />
+                )}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: 0,
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: "Poppins Bold",
+                    }}
+                    tw="text-white py-0 my-0 -mb-3 text-3xl font-bold"
+                  >
+                    {name}
+                  </h3>
+                  <p
+                    tw="text-white/80 py-0 my-0 text-lg"
+                    style={{ fontFamily: "Open Sans" }}
+                  >
+                    @{username}
+                  </p>
+                </div>
+              </div>
+              <h1
+                style={{
+                  fontFamily: "Poppins Bold",
+                }}
+                tw="text-white py-0 my-0 text-7xl font-bold"
+              >
+                {title}
+              </h1>
+              {!!description && (
+                <p
+                  tw="text-white/80 my-0 w-2/3 text-2xl"
+                  style={{ fontFamily: "Open Sans" }}
+                >
+                  {description}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       ),
       {
         width: 1200,
-        height: 630,
+        height: 720,
         fonts: [
           {
             name: "Poppins Bold",
