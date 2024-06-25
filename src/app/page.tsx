@@ -38,6 +38,7 @@ export default function Home() {
                 {!!pins &&
                   pins.rows.map((pin: any) => (
                     <PostCard
+                      key={pin.id}
                       title={pin.metadata.keyvalues.title}
                       excerpt={pin.metadata.keyvalues.excerpt || ""}
                       image={""}
