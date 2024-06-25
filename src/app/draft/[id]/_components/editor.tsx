@@ -76,6 +76,7 @@ export const Editor: React.FC = () => {
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
       // send the content to an API here
+      console.log("json::", json);
       setContent(json);
     },
   });
@@ -94,7 +95,8 @@ export const Editor: React.FC = () => {
 
   const handlePublish = () => {
     storeIPFS({
-      title: "Hello World",
+      title: (content?.content![0] as any)?.content![0]?.text || "",
+      excerpt: (content?.content![1] as any)?.content![0]?.text || "",
       content,
       author: {
         fid: (profile as any)?.fid,

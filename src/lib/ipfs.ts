@@ -13,6 +13,7 @@ export const pinJSONToIPFS = async (data: Post) => {
         name: "post",
         keyvalues: {
           title: data.title,
+          excerpt: data.excerpt,
           authorPfp: data.author.avatar,
           authorName: data.author.name,
           authorFid: data.author.fid,
@@ -34,4 +35,14 @@ export const retrievePostFromIPFS = async (cid: string) => {
   });
 
   return post.json();
+};
+
+export const listPinned = async () => {
+  const pins = await fetch(`${env.PINATA_API_URL}/data/pinList`, {
+    headers: {
+      Authorization: `Bearer ${env.PINATA_JWT}`,
+    },
+  });
+
+  return pins.json();
 };

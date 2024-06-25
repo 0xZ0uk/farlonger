@@ -4,9 +4,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PostCard from "./_components/post-card";
 import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
-import React from "react";
+import React, { useEffect } from "react";
+import { api } from "@/trpc/react";
 
 export default function Home() {
+  const { data: pins } = api.ipfs.getAllPinned.useQuery();
+
+  useEffect(() => {
+    console.log("pins::", pins);
+  }, [pins]);
+
   return (
     <main className="flex flex-col items-center justify-center">
       <section className="mt-12 flex w-10/12 gap-8">
@@ -28,102 +35,21 @@ export default function Home() {
             </TabsList>
             <TabsContent value="for-you">
               <div className="space-y-4">
-                <PostCard
-                  title="How to make Hashnode like Scroll Aware Toolbar using Framer Motion"
-                  excerpt="Hola!Today, we will create a simple scroll-aware toolbar, like the one you see while reading a blog on Hashnode but using..."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="Farcaster"
-                  excerpt="Farcaster is a social media platform that allows users to connect and share content with each other."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="How to make Hashnode like Scroll Aware Toolbar using Framer Motion"
-                  excerpt="Hola!Today, we will create a simple scroll-aware toolbar, like the one you see while reading a blog on Hashnode but using..."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="Farcaster"
-                  excerpt="Farcaster is a social media platform that allows users to connect and share content with each other."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="How to make Hashnode like Scroll Aware Toolbar using Framer Motion"
-                  excerpt="Hola!Today, we will create a simple scroll-aware toolbar, like the one you see while reading a blog on Hashnode but using..."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="Farcaster"
-                  excerpt="Farcaster is a social media platform that allows users to connect and share content with each other."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="How to make Hashnode like Scroll Aware Toolbar using Framer Motion"
-                  excerpt="Hola!Today, we will create a simple scroll-aware toolbar, like the one you see while reading a blog on Hashnode but using..."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
-                <PostCard
-                  title="Farcaster"
-                  excerpt="Farcaster is a social media platform that allows users to connect and share content with each other."
-                  image="/assets/image.png"
-                  date="20 days ago"
-                  author={{
-                    name: "Pedro Santana",
-                    avatar: "/assets/avatar.png",
-                    username: "pedrsntana.dev",
-                  }}
-                  href="/"
-                />
+                {!!pins &&
+                  pins.rows.map((pin: any) => (
+                    <PostCard
+                      title={pin.metadata.keyvalues.title}
+                      excerpt={pin.metadata.keyvalues.excerpt || ""}
+                      image={""}
+                      date={pin.date_pinned}
+                      author={{
+                        name: pin.metadata.keyvalues.authorName,
+                        avatar: pin.metadata.keyvalues.authorPfp,
+                        username: pin.metadata.keyvalues.authorFid,
+                      }}
+                      href={`/post/${pin.ipfs_pin_hash}`}
+                    />
+                  ))}
               </div>
             </TabsContent>
             <TabsContent value="featured">featured</TabsContent>

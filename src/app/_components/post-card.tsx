@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookmarkPlusIcon, RefreshCcwIcon } from "lucide-react";
+import Link from "next/link";
 
 interface PostCardProps {
   title: string;
@@ -45,21 +46,23 @@ export default function PostCard(props: PostCardProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex h-fit gap-8">
-        <div className="basis-4/6 space-y-2">
-          <CardTitle>{props.title}</CardTitle>
-          <CardDescription>{props.excerpt}</CardDescription>
-        </div>
-        <div className="basis-2/6">
-          <Image
-            className="rounded-md"
-            src={props.image}
-            alt={props.title}
-            width={320}
-            height={200}
-          />
-        </div>
-      </CardContent>
+      <Link href={props.href}>
+        <CardContent className="flex h-fit gap-8">
+          <div className="basis-4/6 space-y-2">
+            <CardTitle>{props.title}</CardTitle>
+            <CardDescription>{props.excerpt}</CardDescription>
+          </div>
+          <div className="basis-2/6">
+            <Image
+              className="rounded-md"
+              src={props.image}
+              alt={props.title}
+              width={320}
+              height={200}
+            />
+          </div>
+        </CardContent>
+      </Link>
       <CardFooter className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="sm" className="gap-2">
