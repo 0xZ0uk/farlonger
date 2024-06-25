@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         >
           <div tw="flex w-full h-full flex-col items-start justify-between p-8">
             <p
-              tw="text-white text-lg font-bold"
+              tw="text-white text-2xl font-bold"
               style={{ fontFamily: "Poppins Bold" }}
             >
               <span tw="text-[#7d66c2]">Far</span>Longer
@@ -61,8 +61,8 @@ export async function GET(request: Request) {
               >
                 {!!authorPfp && (
                   <img
-                    width="256"
-                    height="256"
+                    width="384"
+                    height="384"
                     src={authorPfp}
                     alt={"author"}
                     tw="object-cover w-24 h-24 rounded-full"
@@ -80,12 +80,12 @@ export async function GET(request: Request) {
                     style={{
                       fontFamily: "Poppins Bold",
                     }}
-                    tw="text-white py-0 my-0 -mb-3 text-3xl font-bold"
+                    tw="text-white py-0 my-0 -mb-3 text-4xl font-bold"
                   >
                     {name}
                   </h3>
                   <p
-                    tw="text-white/80 py-0 my-0 text-lg"
+                    tw="text-white/80 py-0 my-0 text-xl"
                     style={{ fontFamily: "Open Sans" }}
                   >
                     @{username}
@@ -96,13 +96,13 @@ export async function GET(request: Request) {
                 style={{
                   fontFamily: "Poppins Bold",
                 }}
-                tw="text-white py-0 my-0 text-7xl font-bold"
+                tw="text-white py-0 my-0 text-8xl font-bold"
               >
                 {title}
               </h1>
               {!!description && (
                 <p
-                  tw="text-white/80 my-0 w-2/3 text-2xl"
+                  tw="text-white/80 my-0 w-2/3 text-3xl"
                   style={{ fontFamily: "Open Sans" }}
                 >
                   {description}
@@ -114,7 +114,7 @@ export async function GET(request: Request) {
       ),
       {
         width: 1200,
-        height: 720,
+        height: 630,
         fonts: [
           {
             name: "Poppins Bold",
