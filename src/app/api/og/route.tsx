@@ -13,8 +13,6 @@ export async function GET(request: Request) {
       ? searchParams.get("title")?.slice(0, 100)
       : "My default title";
 
-    const username = searchParams.get("username");
-
     return new ImageResponse(
       (
         <div
@@ -28,16 +26,8 @@ export async function GET(request: Request) {
             backgroundColor: "#16101E",
           }}
         >
-          <div tw=" flex h-full">
-            <img
-              width="256"
-              height="256"
-              src={`https://github.com/${username}.png`}
-              style={{
-                borderRadius: 128,
-              }}
-            />
-            <p>{title}</p>
+          <div tw="flex h-full flex-col items-center justify-center gap-4">
+            <h1 tw="text-white text-4xl font-bold">{title}</h1>
           </div>
         </div>
       ),
