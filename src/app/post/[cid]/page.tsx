@@ -10,8 +10,8 @@ export async function generateStaticParams() {
 
 export default function PostPage({ params }: { params: { cid: string } }) {
   return (
-    <div>
+    <main className="flex w-full flex-col items-center justify-center">
       <Post cid={params.cid} />
-    </div>
+    </main>
   );
 }
