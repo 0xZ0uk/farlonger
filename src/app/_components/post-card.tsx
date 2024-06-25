@@ -50,7 +50,11 @@ export default function PostCard(props: PostCardProps) {
         <CardContent className="flex h-fit gap-8">
           <div className="basis-4/6 space-y-2">
             <CardTitle>{props.title}</CardTitle>
-            <CardDescription>{props.excerpt}</CardDescription>
+            <CardDescription>
+              {props.excerpt
+                .slice(0, 100)
+                .concat(props.excerpt.length > 100 ? "..." : "")}
+            </CardDescription>
           </div>
           <div className="basis-2/6">
             <Image

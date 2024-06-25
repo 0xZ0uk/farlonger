@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 // App router includes @vercel/og.
 // No need to install it.
@@ -65,7 +64,7 @@ export async function GET(request: Request) {
                     height="384"
                     src={authorPfp}
                     alt={"author"}
-                    tw="object-cover w-24 h-24 rounded-full"
+                    tw="w-24 h-24 rounded-full"
                   />
                 )}
                 <div
