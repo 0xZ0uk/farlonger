@@ -32,6 +32,7 @@ export async function generateMetadata(
 
   return {
     title: post.title,
+    description: post.excerpt,
     openGraph: {
       images: ["/api/og?title=" + post.title, ...previousImages],
     },
