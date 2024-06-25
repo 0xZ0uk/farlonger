@@ -4,26 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PostCard from "./_components/post-card";
 import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
-import { api } from "@/trpc/react";
 import React from "react";
 
 export default function Home() {
-  const { data: post } = api.ipfs.getByCID.useQuery({
-    cid: "bagaaieramioxlmj245b545eo3sbadnc6mvk6zmbcyjva7uxjzwmsbvdkwckq",
-  });
-
-  const { data: casts } = api.farcaster.getCastsByFID.useQuery({
-    fid: "594726",
-  });
-
-  React.useEffect(() => {
-    console.log("post::", post);
-  }, [post]);
-
-  React.useEffect(() => {
-    console.log("casts::", casts);
-  }, [casts]);
-
   return (
     <main className="flex flex-col items-center justify-center">
       <section className="mt-12 flex w-10/12 gap-8">

@@ -18,9 +18,20 @@ export const pinJSONToIPFS = async (data: Post) => {
           authorFid: data.author.fid,
         },
       },
-      pinataContent: data.content,
+      pinataContent: JSON.stringify(data),
     }),
   });
 
   return pin.json();
+};
+
+export const retrievePostFromIPFS = async (cid: string) => {
+  const post = await fetch(`${env.PINATA_GATEWAY_URL}/ipfs/${cid}`, {
+    method: "GET",
+    headers: {
+      "x-pinata-gateway-token": env.PINATA_GATEWAY_KEY,
+    },
+  });
+
+  return post.json();
 };

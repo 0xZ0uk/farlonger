@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { z } from "zod";
-import { retrievePostFromIPFS } from "@/lib/helia";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import type { Post } from "@/types/core";
-import { pinJSONToIPFS } from "@/lib/ipfs";
+import { pinJSONToIPFS, retrievePostFromIPFS } from "@/lib/ipfs";
 
 export const ipfsRouter = createTRPCRouter({
   store: publicProcedure
