@@ -27,6 +27,6 @@ export const ipfsRouter = createTRPCRouter({
     .input(z.object({ cid: z.string().min(1) }))
     .query(async ({ input }) => {
       const post = await retrievePostFromIPFS(input.cid);
-      return post;
+      return JSON.parse(post);
     }),
 });
