@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { getCastsByFID } from "@/lib/farcaster";
+import { getCastsByFID, sendCast } from "@/lib/farcaster";
 
 export const farcasterRouter = createTRPCRouter({
   getCastsByFID: publicProcedure
@@ -8,5 +8,24 @@ export const farcasterRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const casts = await getCastsByFID(input.fid);
       return casts;
+    }),
+  sendCast: publicProcedure
+    .input(
+      z.object({
+        cast: z.object({ text: z.string().min(1) }),
+        signerId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const cast = await sendCast({
+        text: input.cast.text,
+        signerId: input.signerId,
+        parentUrl: null,
+        embeds: null,
+        mentions: null,
+        mentionsPositions: null,
+        parentCastId: null,
+      });
+      return cast;
     }),
 });

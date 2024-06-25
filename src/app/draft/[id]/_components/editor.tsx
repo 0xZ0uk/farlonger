@@ -12,9 +12,9 @@ import Image from "@tiptap/extension-image";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
-import { toast } from "sonner";
 import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
+import { useRouter } from "next/navigation";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -22,14 +22,17 @@ const CustomDocument = Document.extend({
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
+  const router = useRouter();
 
   const [content, setContent] = React.useState<JSONContent | undefined>(
     undefined,
   );
 
-  const { mutate } = api.ipfs.store.useMutation({
-    onSuccess: () => {
-      toast("Published!");
+  const { mutate: storeIPFS } = api.ipfs.store.useMutation({
+    onSuccess: (data) => {
+      router.push(
+        `https://warpcast.com/~/compose?text=Cid%3A%20${data.cid}&fid=${profile?.fid}`,
+      );
     },
   });
 
@@ -89,7 +92,7 @@ export const Editor: React.FC = () => {
   };
 
   const handlePublish = () => {
-    mutate({
+    storeIPFS({
       title: "Hello World",
       content,
       author: {

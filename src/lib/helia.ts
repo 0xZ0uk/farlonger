@@ -20,8 +20,8 @@ export async function storePostOnIPFS(post: Post) {
   };
 }
 
-export async function retrievePostFromIPFS(fileCid: string): Promise<Post> {
+export async function retrievePostFromIPFS(fileCid: string): Promise<any> {
   const post = await j.get(CID.parse(fileCid));
 
-  return post as Post;
+  return post;
 }
