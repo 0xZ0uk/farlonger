@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
+import { useEditor, EditorContent, type JSONContent } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Heading from "@tiptap/extension-heading";
@@ -12,12 +14,15 @@ import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
+import { useProfile } from "@farcaster/auth-kit";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
 export const Editor: React.FC = () => {
+  const { profile } = useProfile();
+
   const [content, setContent] = React.useState<JSONContent | undefined>(
     undefined,
   );
@@ -86,7 +91,12 @@ export const Editor: React.FC = () => {
   const handlePublish = () => {
     mutate({
       title: "Hello World",
-      content: JSON.stringify(content),
+      content,
+      author: {
+        fid: (profile as any)?.fid,
+        name: (profile as any)?.displayName,
+        avatar: (profile as any)?.pfpUrl,
+      },
     });
   };
 

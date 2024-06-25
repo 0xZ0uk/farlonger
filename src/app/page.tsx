@@ -9,7 +9,7 @@ import React from "react";
 
 export default function Home() {
   const { data: post } = api.ipfs.getByCID.useQuery({
-    cid: "bagaaieramjq3xdothodhcwey3nyu5lwzofqpekhky3jlejjcqz5cne6bnrva",
+    cid: "bagaaieramioxlmj245b545eo3sbadnc6mvk6zmbcyjva7uxjzwmsbvdkwckq",
   });
 
   const { data: casts } = api.farcaster.getCastsByFID.useQuery({
