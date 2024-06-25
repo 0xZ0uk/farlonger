@@ -8,8 +8,6 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
-    FARCASTER_HUB_URL: z.string(),
-    FARCASTER_HUB_URL_BACKUP: z.string(),
     PINATA_GATEWAY_URL: z.string(),
     PINATA_GATEWAY_KEY: z.string(),
     PINATA_API_URL: z.string(),
@@ -33,8 +31,6 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    FARCASTER_HUB_URL: process.env.FARCASTER_HUB_URL,
-    FARCASTER_HUB_URL_BACKUP: process.env.FARCASTER_HUB_URL_BACKUP,
     PINATA_GATEWAY_URL: process.env.PINATA_GATEWAY_URL,
     PINATA_GATEWAY_KEY: process.env.PINATA_GATEWAY_KEY,
     PINATA_API_URL: process.env.PINATA_API_URL,
