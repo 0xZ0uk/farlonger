@@ -13,7 +13,7 @@ export default function Home() {
   });
 
   const { data: casts } = api.farcaster.getCastsByFID.useQuery({
-    fid: "2",
+    fid: "594726",
   });
 
   React.useEffect(() => {
