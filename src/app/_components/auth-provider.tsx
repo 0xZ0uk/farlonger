@@ -17,10 +17,7 @@ export default function AuthProvider({
       config={{
         rpcUrl:
           "https://late-young-sailboat.optimism.quiknode.pro/569527c26d9fa3d680db2932d2a7c58ea5126e54/",
-        domain:
-          env.NODE_ENV === "development"
-            ? "localhost:3000"
-            : "farlonger.vercel.app",
+        domain: "farlonger.vercel.app",
         siweUri: "https://farlonger.vercel.app/login",
       }}
     >
