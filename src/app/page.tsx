@@ -24,11 +24,11 @@ export default function Home() {
                 <SparklesIcon className="h-4 w-4" />
                 For You
               </TabsTrigger>
-              <TabsTrigger value="featured" className="gap-2">
+              <TabsTrigger value="featured" className="gap-2" disabled>
                 <UsersIcon className="h-4 w-4" />
                 Featured
               </TabsTrigger>
-              <TabsTrigger value="following" className="gap-2">
+              <TabsTrigger value="following" className="gap-2" disabled>
                 <BookmarkIcon className="h-4 w-4" />
                 Following
               </TabsTrigger>
@@ -53,8 +53,8 @@ export default function Home() {
                   ))}
               </div>
             </TabsContent>
-            <TabsContent value="featured">featured</TabsContent>
-            <TabsContent value="following">following</TabsContent>
+            <TabsContent value="featured">Featured (coming soon)</TabsContent>
+            <TabsContent value="following">Following (coming soon)</TabsContent>
           </Tabs>
         </div>
         <div className="flex basis-1/3 flex-col gap-4">

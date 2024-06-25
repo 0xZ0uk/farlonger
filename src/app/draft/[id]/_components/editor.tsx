@@ -31,7 +31,7 @@ export const Editor: React.FC = () => {
       console.log("data::", data);
 
       window.open(
-        `https://warpcast.com/~/compose?text=Cid%3A%20${data.cid}&fid=${profile?.fid}`,
+        `https://warpcast.com/~/compose?text=Read%20this%20post%20on%20FarLonger&fid=${profile?.fid}!&embeds[]=https://farlonger.vercel.app/post/${data.cid}`,
         "_blank",
       );
     },
@@ -76,7 +76,6 @@ export const Editor: React.FC = () => {
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
       // send the content to an API here
-      console.log("json::", json);
       setContent(json);
     },
   });

@@ -49,11 +49,11 @@ export default function PostCard(props: PostCardProps) {
       <Link href={props.href}>
         <CardContent className="flex h-fit gap-8">
           <div className="basis-4/6 space-y-2">
-            <CardTitle>{props.title}</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl font-bold">{props.title}</CardTitle>
+            <CardDescription className="text-xl">
               {props.excerpt
-                .slice(0, 100)
-                .concat(props.excerpt.length > 100 ? "..." : "")}
+                .slice(0, 255)
+                .concat(props.excerpt.length > 255 ? "..." : "")}
             </CardDescription>
           </div>
           <div className="basis-2/6">
