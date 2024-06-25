@@ -1,17 +1,25 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import PostCard from "./_components/post-card";
+import PostCard from "@/app/_components/post-card";
 import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
-import React, { useEffect } from "react";
+import React from "react";
 import { api } from "@/trpc/react";
+import { useProfile } from "@farcaster/auth-kit";
 
 export default function Home() {
-  const { data: pins } = api.ipfs.getAllPinned.useQuery();
+  const { profile } = useProfile();
 
-  useEffect(() => {
-    console.log;
+  const { data: pins } = api.ipfs.getByFID.useQuery(
+    { fid: profile.fid ?? 0 },
+    {
+      enabled: !!profile.fid,
+    },
+  );
+
+  React.useEffect(() => {
+    console.log(pins);
   }, [pins]);
 
   return (

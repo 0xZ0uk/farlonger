@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useProfile, useSignIn } from "@farcaster/auth-kit";
+import Link from "next/link";
 
 export const AvatarMenu: React.FC = () => {
   const {
@@ -29,8 +30,9 @@ export const AvatarMenu: React.FC = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/profile">My Profile</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem className="text-red-500" onClick={signOut}>
           Logout
         </DropdownMenuItem>

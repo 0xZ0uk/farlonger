@@ -46,3 +46,27 @@ export const listPinned = async () => {
 
   return pins.json();
 };
+
+export const unpinFromIPFS = async (cid: string, userFid: string) => {
+  // Check if pinned post belongs to user
+  const pins = await listPinned();
+  const pinnedPost = pins.find((pin: any) => pin.cid === cid);
+
+  if (!pinnedPost) {
+    throw new Error("Post not found");
+  }
+
+  if (pinnedPost.userFid !== userFid) {
+    throw new Error("You do not own this post");
+  }
+
+  const unpin = await fetch(`${env.PINATA_API_URL}/pinning/unpin/${cid}`, {
+    method: "DELETE",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${env.PINATA_JWT}`,
+    },
+  });
+
+  return unpin.json();
+};
