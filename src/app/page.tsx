@@ -6,13 +6,21 @@ import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
 import React, { useEffect } from "react";
 import { api } from "@/trpc/react";
+import { useProfile } from "@farcaster/auth-kit";
 
 export default function Home() {
+  const { profile } = useProfile();
   const { data: pins } = api.ipfs.getAllPinned.useQuery();
 
   useEffect(() => {
-    console.log;
-  }, [pins]);
+    console.log("pins", pins, typeof pins);
+    console.log(
+      "my pins",
+      pins?.rows.filter(
+        (pin: any) => pin.metadata.keyvalues.authorFid === profile?.fid,
+      ),
+    );
+  }, [pins, profile]);
 
   return (
     <main className="flex flex-col items-center justify-center">

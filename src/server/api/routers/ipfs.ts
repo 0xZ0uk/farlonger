@@ -34,16 +34,16 @@ export const ipfsRouter = createTRPCRouter({
     .input(z.object({ fid: z.number() }))
     .query(async ({ input }) => {
       const pins = await listPinned();
-      const pinnedPost = pins.find(
+
+      const postsByFid = pins?.rows.filter(
         (pin: any) => pin.metadata.keyvalues.authorFid === input.fid,
       );
 
-      if (!pinnedPost) {
-        throw new Error("Post not found");
+      if (!postsByFid || postsByFid.length === 0) {
+        throw new Error("Posts not found");
       }
 
-      const post = await retrievePostFromIPFS(pinnedPost.cid);
-      return JSON.parse(post);
+      return postsByFid;
     }),
   getAllPinned: publicProcedure.query(async () => {
     const pins = await listPinned();
