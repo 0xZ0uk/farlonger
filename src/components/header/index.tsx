@@ -7,10 +7,7 @@ import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
 
 export default function Header() {
-  const {
-    isAuthenticated,
-    profile: { username, fid },
-  } = useProfile();
+  const { isAuthenticated } = useProfile();
 
   return (
     <header className="flex h-16 items-center justify-center border-b border-muted-foreground/20 bg-muted">
@@ -26,7 +23,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           {!isAuthenticated && (
             <div className="scale-75">
-              <SignInButton />
+              <SignInButton onSuccess={() => alert("Success")} />
             </div>
           )}
           <ModeToggle />

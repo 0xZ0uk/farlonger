@@ -4,15 +4,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PostCard from "./_components/post-card";
 import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
-import React, { useEffect } from "react";
+import React from "react";
 import { api } from "@/trpc/react";
 
 export default function Home() {
   const { data: pins } = api.ipfs.getAllPinned.useQuery();
-
-  useEffect(() => {
-    console.log("pins::", pins);
-  }, [pins]);
 
   return (
     <main className="flex flex-col items-center justify-center">

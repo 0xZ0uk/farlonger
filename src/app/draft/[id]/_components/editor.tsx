@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
 import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
+import { useRouter } from "next/navigation";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -21,6 +22,7 @@ const CustomDocument = Document.extend({
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
+  const router = useRouter();
 
   const [content, setContent] = React.useState<JSONContent | undefined>(
     undefined,
@@ -28,12 +30,12 @@ export const Editor: React.FC = () => {
 
   const { mutate: storeIPFS } = api.ipfs.store.useMutation({
     onSuccess: (data) => {
-      console.log("data::", data);
-
       window.open(
         `https://warpcast.com/~/compose?text=Read%20this%20post%20on%20FarLonger&fid=${profile?.fid}!&embeds[]=https://farlonger.vercel.app/post/${data.cid}`,
         "_blank",
       );
+
+      router.push(`/post/${data.cid}`);
     },
   });
 

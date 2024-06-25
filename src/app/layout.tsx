@@ -23,8 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="min-h-screen bg-background text-foreground">
-        <TRPCReactProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <TRPCReactProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -35,8 +35,8 @@ export default function RootLayout({
               {children}
               <Toaster />
             </ThemeProvider>
-          </AuthProvider>
-        </TRPCReactProvider>
+          </TRPCReactProvider>
+        </AuthProvider>
       </body>
     </html>
   );
