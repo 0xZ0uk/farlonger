@@ -28,7 +28,7 @@ export const Editor: React.FC = () => {
     undefined,
   );
 
-  const { mutate: storeIPFS } = api.ipfs.store.useMutation({
+  const { mutate: storeIPFS } = api.ipfs.pin.useMutation({
     onSuccess: (data) => {
       window.open(
         `https://warpcast.com/~/compose?text=Read%20this%20post%20on%20FarLonger&fid=${profile?.fid}!&embeds[]=https://farlonger.vercel.app/post/${data.cid}`,

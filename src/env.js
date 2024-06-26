@@ -8,9 +8,12 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
-    PINATA_GATEWAY_URL: z.string(),
+    FARCASTER_RELAY_URL: z.string().url(),
+    FARCASTER_OG_DOMAIN: z.string(),
+    FARCASTER_OG_SIWE_URI: z.string().url(),
+    PINATA_GATEWAY_URL: z.string().url(),
     PINATA_GATEWAY_KEY: z.string(),
-    PINATA_API_URL: z.string(),
+    PINATA_API_URL: z.string().url(),
     PINATA_API_KEY: z.string(),
     PINATA_API_SECRET: z.string(),
     PINATA_JWT: z.string(),
@@ -31,6 +34,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    FARCASTER_RELAY_URL: process.env.FARCASTER_RELAY_URL,
+    FARCASTER_OG_DOMAIN: process.env.FARCASTER_OG_DOMAIN,
+    FARCASTER_OG_SIWE_URI: process.env.FARCASTER_OG_SIWE_URI,
     PINATA_GATEWAY_URL: process.env.PINATA_GATEWAY_URL,
     PINATA_GATEWAY_KEY: process.env.PINATA_GATEWAY_KEY,
     PINATA_API_URL: process.env.PINATA_API_URL,

@@ -4,10 +4,15 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import type { Post } from "@/types/core";
-import { listPinned, pinJSONToIPFS, retrievePostFromIPFS } from "@/lib/ipfs";
+import {
+  listPinned,
+  pinJSONToIPFS,
+  retrievePostFromIPFS,
+  unpinFromIPFS,
+} from "@/lib/ipfs";
 
 export const ipfsRouter = createTRPCRouter({
-  store: publicProcedure
+  pin: publicProcedure
     .input(
       z.object({
         title: z.string().min(1),
@@ -23,6 +28,12 @@ export const ipfsRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const pin = await pinJSONToIPFS(input as Post);
       return { cid: pin.IpfsHash };
+    }),
+  unpin: publicProcedure
+    .input(z.object({ cid: z.string().min(1), fid: z.number() }))
+    .mutation(async ({ input }) => {
+      await unpinFromIPFS(input.cid, input.fid);
+      return { success: true };
     }),
   getByCID: publicProcedure
     .input(z.object({ cid: z.string().min(1) }))

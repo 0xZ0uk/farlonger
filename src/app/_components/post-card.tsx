@@ -10,8 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookmarkPlusIcon, RefreshCcwIcon } from "lucide-react";
+import {
+  BookmarkPlusIcon,
+  DeleteIcon,
+  RefreshCcwIcon,
+  TrashIcon,
+} from "lucide-react";
 import Link from "next/link";
+import { useProfile } from "@farcaster/auth-kit";
 
 interface PostCardProps {
   title: string;
@@ -19,14 +25,23 @@ interface PostCardProps {
   image: string;
   date: string;
   author: {
+    fid: number;
     name: string;
     avatar: string;
     username: string;
   };
   href: string;
+
+  onDelete?: () => void;
+  onBookmark?: () => void;
+  onRecast?: () => void;
 }
 
 export default function PostCard(props: PostCardProps) {
+  const {
+    profile: { fid },
+  } = useProfile();
+
   return (
     <Card>
       <CardHeader>
@@ -76,7 +91,17 @@ export default function PostCard(props: PostCardProps) {
           <p className="text-sm">88 likes</p>
           <p className="text-sm">2 comments</p>
         </div>
-        <div>
+        <div className="flex gap-2">
+          {props.author.fid === fid && props.onDelete && (
+            <Button
+              size="icon"
+              variant="ghost"
+              className="rounded-full hover:bg-destructive"
+              onClick={props.onDelete}
+            >
+              <TrashIcon className="h-4 w-4" />
+            </Button>
+          )}
           <Button size="icon" variant="ghost" className="rounded-full">
             <BookmarkPlusIcon className="h-4 w-4" />
           </Button>

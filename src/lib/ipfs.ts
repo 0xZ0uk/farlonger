@@ -47,7 +47,7 @@ export const listPinned = async () => {
   return pins.json();
 };
 
-export const unpinFromIPFS = async (cid: string, userFid: string) => {
+export const unpinFromIPFS = async (cid: string, userFid: number) => {
   // Check if pinned post belongs to user
   const pins: any[] = await listPinned();
   const pinnedPost = pins?.find((pin: any) => pin.cid === cid);

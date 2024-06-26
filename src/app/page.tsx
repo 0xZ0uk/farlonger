@@ -11,6 +11,7 @@ import { useProfile } from "@farcaster/auth-kit";
 export default function Home() {
   const { profile } = useProfile();
   const { data: pins } = api.ipfs.getAllPinned.useQuery();
+  const { data: session } = api.farcaster.mySession.useQuery();
 
   useEffect(() => {
     console.log("pins", pins, typeof pins);
@@ -21,6 +22,10 @@ export default function Home() {
       ),
     );
   }, [pins, profile]);
+
+  useEffect(() => {
+    console.log("session", session);
+  }, [session]);
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -52,6 +57,7 @@ export default function Home() {
                       image={""}
                       date={pin.date_pinned}
                       author={{
+                        fid: pin.metadata.keyvalues.authorFid,
                         name: pin.metadata.keyvalues.authorName,
                         avatar: pin.metadata.keyvalues.authorPfp,
                         username: pin.metadata.keyvalues.authorFid,

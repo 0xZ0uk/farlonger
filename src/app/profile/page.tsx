@@ -11,16 +11,18 @@ import { useProfile } from "@farcaster/auth-kit";
 export default function Home() {
   const { profile } = useProfile();
 
-  const { data: pins } = api.ipfs.getByFID.useQuery(
+  const { data: pins, refetch } = api.ipfs.getByFID.useQuery(
     { fid: profile.fid ?? 0 },
     {
       enabled: !!profile.fid,
     },
   );
 
-  React.useEffect(() => {
-    console.log(pins);
-  }, [pins, profile]);
+  const { mutate: unpin } = api.ipfs.unpin.useMutation({
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -52,11 +54,15 @@ export default function Home() {
                       image={""}
                       date={pin.date_pinned}
                       author={{
+                        fid: pin.metadata.keyvalues.authorFid,
                         name: pin.metadata.keyvalues.authorName,
                         avatar: pin.metadata.keyvalues.authorPfp,
                         username: pin.metadata.keyvalues.authorFid,
                       }}
                       href={`/post/${pin.ipfs_pin_hash}`}
+                      onDelete={() =>
+                        unpin({ cid: pin.ipfs_pin_hash, fid: profile.fid ?? 0 })
+                      }
                     />
                   ))}
               </div>
