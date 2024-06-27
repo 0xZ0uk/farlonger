@@ -22,8 +22,8 @@ export default function Header() {
     return nonce;
   }, []);
 
-  const handleSuccess = useCallback((res: StatusAPIResponse) => {
-    signIn("credentials", {
+  const handleSuccess = useCallback(async (res: StatusAPIResponse) => {
+    await signIn("credentials", {
       message: res.message,
       signature: res.signature,
       name: res.username,
