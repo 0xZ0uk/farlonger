@@ -79,11 +79,12 @@ export const authOptions: NextAuthOptions = {
           message: credentials?.message!,
           signature: credentials?.signature as `0x${string}`,
           domain: env.NEXT_PUBLIC_API_URL,
-          nonce: req.body?.csrfToken,
+          nonce: req.body?.csrfToken ?? "some-random-nonce",
         });
-        const { success, fid } = verifyResponse;
 
-        if (!success) {
+        const { isError, fid } = verifyResponse;
+
+        if (!!isError) {
           return null;
         }
 
