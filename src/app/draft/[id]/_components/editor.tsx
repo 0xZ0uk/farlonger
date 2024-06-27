@@ -10,11 +10,12 @@ import Text from "@tiptap/extension-text";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { EyeIcon, ImageIcon } from "lucide-react";
-import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
 import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
 
 const CustomDocument = Document.extend({
   content: "heading block*",

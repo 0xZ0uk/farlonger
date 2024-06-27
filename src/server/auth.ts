@@ -73,6 +73,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const appClient = createAppClient({
           ethereum: viemConnector(),
+          relay: env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
         });
 
         const verifyResponse = await appClient.verifySignInMessage({
@@ -82,10 +83,10 @@ export const authOptions: NextAuthOptions = {
           nonce: req.body?.csrfToken ?? "some-random-nonce",
         });
 
-        const { isError, fid } = verifyResponse;
+        const { isError, fid, error } = verifyResponse;
 
         if (!!isError) {
-          return null;
+          throw new Error(error?.message);
         }
 
         return {
