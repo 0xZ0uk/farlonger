@@ -19,8 +19,8 @@ export default function Home() {
   );
 
   const { mutate: unpin } = api.ipfs.unpin.useMutation({
-    onSuccess: () => {
-      refetch();
+    onSuccess: async () => {
+      await refetch();
     },
   });
 
