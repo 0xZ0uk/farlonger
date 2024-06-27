@@ -21,7 +21,7 @@ export default async function Home() {
                 <SparklesIcon className="h-4 w-4" />
                 For You
               </TabsTrigger>
-              <TabsTrigger value="featured" className="gap-2">
+              <TabsTrigger value="featured" className="gap-2" disabled>
                 <UsersIcon className="h-4 w-4" />
                 Featured
               </TabsTrigger>
@@ -33,14 +33,7 @@ export default async function Home() {
             <TabsContent value="for-you">
               <Posts posts={pins.rows} />
             </TabsContent>
-            <TabsContent value="featured">
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-              >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
-            </TabsContent>
+            <TabsContent value="featured">Featured (coming soon)</TabsContent>
             <TabsContent value="following">Following (coming soon)</TabsContent>
           </Tabs>
         </div>

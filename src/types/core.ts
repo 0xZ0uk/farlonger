@@ -6,7 +6,7 @@ export type Post = {
 };
 
 export type Author = {
-  fid: number;
+  fid: string;
   name: string;
   avatar: string;
 };

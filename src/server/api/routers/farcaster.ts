@@ -13,6 +13,10 @@ export const farcasterRouter = createTRPCRouter({
       const casts = await getCastsByFID(input.fid);
       return casts;
     }),
+  getUserCasts: protectedProcedure.query(async ({ ctx }) => {
+    const casts = await getCastsByFID(ctx.session.user.id);
+    return casts;
+  }),
   sendCast: protectedProcedure
     .input(
       z.object({

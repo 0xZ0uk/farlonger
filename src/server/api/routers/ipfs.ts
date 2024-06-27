@@ -2,7 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import type { Post } from "@/types/core";
 import {
   listPinned,
@@ -12,27 +16,31 @@ import {
 } from "@/lib/ipfs";
 
 export const ipfsRouter = createTRPCRouter({
-  pin: publicProcedure
+  pin: protectedProcedure
     .input(
       z.object({
         title: z.string().min(1),
         excerpt: z.string().optional(),
         content: z.any(),
-        author: z.object({
-          fid: z.number(),
-          name: z.string().min(1),
-          avatar: z.string().min(1),
-        }),
       }),
     )
-    .mutation(async ({ input }) => {
-      const pin = await pinJSONToIPFS(input as Post);
+    .mutation(async ({ input, ctx }) => {
+      const pin = await pinJSONToIPFS({
+        author: {
+          name: ctx.session.user.name ?? "",
+          avatar: ctx.session.user.image ?? "",
+          fid: ctx.session.user.id,
+        },
+        content: input.content,
+        excerpt: input.excerpt,
+        title: input.title,
+      });
       return { cid: pin.IpfsHash };
     }),
-  unpin: publicProcedure
-    .input(z.object({ cid: z.string().min(1), fid: z.number() }))
-    .mutation(async ({ input }) => {
-      await unpinFromIPFS(input.cid, input.fid);
+  unpin: protectedProcedure
+    .input(z.object({ cid: z.string().min(1) }))
+    .mutation(async ({ input, ctx }) => {
+      await unpinFromIPFS(input.cid, ctx.session.user.id);
       return { success: true };
     }),
   getByCID: publicProcedure

@@ -11,10 +11,12 @@ import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { signIn, signOut, getCsrfToken } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const { isAuthenticated } = useProfile();
   const [error, setError] = useState(false);
+  const router = useRouter();
 
   const getNonce = useCallback(async () => {
     const nonce = await getCsrfToken();
@@ -30,6 +32,7 @@ export default function Header() {
       pfp: res.pfpUrl,
       redirect: false,
     });
+    await router.refresh();
   }, []);
 
   return (
