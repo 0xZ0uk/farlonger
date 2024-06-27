@@ -1,5 +1,6 @@
 "use client";
 
+import { env } from "@/env";
 import { AuthKitProvider } from "@farcaster/auth-kit";
 
 export default function AuthProvider({
@@ -10,10 +11,10 @@ export default function AuthProvider({
   return (
     <AuthKitProvider
       config={{
-        rpcUrl:
-          "https://late-young-sailboat.optimism.quiknode.pro/569527c26d9fa3d680db2932d2a7c58ea5126e54/",
-        domain: "localhost",
-        siweUri: "https://localhost:3000/login",
+        relay: env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
+        rpcUrl: env.NEXT_PUBLIC_FARCASTER_RPC_URL,
+        domain: env.NEXT_PUBLIC_FARCASTER_DOMAIN,
+        siweUri: env.NEXT_PUBLIC_FARCASTER_SIWE_URI,
       }}
     >
       {children}
