@@ -2,8 +2,6 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { getFarcasterAuthSession } from "@/server/auth";
-
 /**
  * 1. CONTEXT
  *
@@ -17,10 +15,7 @@ import { getFarcasterAuthSession } from "@/server/auth";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = getFarcasterAuthSession(opts.headers);
-
   return {
-    session,
     ...opts,
   };
 };
@@ -84,14 +79,6 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-  return next({
-    ctx: {
-      // infers the `session` as non-nullable
-      session: { ...ctx.session, user: ctx.session.user },
-    },
-  });
+export const protectedProcedure = t.procedure.use(({ next }) => {
+  return next();
 });

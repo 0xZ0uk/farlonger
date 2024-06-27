@@ -10,12 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  BookmarkPlusIcon,
-  DeleteIcon,
-  RefreshCcwIcon,
-  TrashIcon,
-} from "lucide-react";
+import { BookmarkPlusIcon, RefreshCcwIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { useProfile } from "@farcaster/auth-kit";
 

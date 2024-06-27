@@ -1,9 +1,5 @@
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { getCastsByFID, sendCast } from "@/lib/farcaster";
 
 export const farcasterRouter = createTRPCRouter({
@@ -32,7 +28,4 @@ export const farcasterRouter = createTRPCRouter({
       });
       return cast;
     }),
-  mySession: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.session;
-  }),
 });

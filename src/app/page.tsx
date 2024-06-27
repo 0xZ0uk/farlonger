@@ -1,31 +1,12 @@
-"use client";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import PostCard from "./_components/post-card";
 import { BookmarkIcon, SparklesIcon, UsersIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
-import React, { useEffect } from "react";
-import { api } from "@/trpc/react";
-import { useProfile } from "@farcaster/auth-kit";
+import React from "react";
+import { Posts } from "./_components/posts";
+import { api } from "@/trpc/server";
 
-export default function Home() {
-  const { profile } = useProfile();
-  const { data: pins } = api.ipfs.getAllPinned.useQuery();
-  const { data: session } = api.farcaster.mySession.useQuery();
-
-  useEffect(() => {
-    console.log("pins", pins, typeof pins);
-    console.log(
-      "my pins",
-      pins?.rows.filter(
-        (pin: any) => pin.metadata.keyvalues.authorFid === profile?.fid,
-      ),
-    );
-  }, [pins, profile]);
-
-  useEffect(() => {
-    console.log("session", session);
-  }, [session]);
+export default async function Home() {
+  const pins = await api.ipfs.getAllPinned();
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -47,25 +28,7 @@ export default function Home() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="for-you">
-              <div className="space-y-4">
-                {!!pins &&
-                  pins.rows.map((pin: any) => (
-                    <PostCard
-                      key={pin.id}
-                      title={pin.metadata.keyvalues.title}
-                      excerpt={pin.metadata.keyvalues.excerpt || ""}
-                      image={""}
-                      date={pin.date_pinned}
-                      author={{
-                        fid: pin.metadata.keyvalues.authorFid,
-                        name: pin.metadata.keyvalues.authorName,
-                        avatar: pin.metadata.keyvalues.authorPfp,
-                        username: pin.metadata.keyvalues.authorFid,
-                      }}
-                      href={`/post/${pin.ipfs_pin_hash}`}
-                    />
-                  ))}
-              </div>
+              <Posts posts={pins.rows} />
             </TabsContent>
             <TabsContent value="featured">Featured (coming soon)</TabsContent>
             <TabsContent value="following">Following (coming soon)</TabsContent>
