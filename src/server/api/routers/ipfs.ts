@@ -64,6 +64,19 @@ export const ipfsRouter = createTRPCRouter({
 
       return postsByFid;
     }),
+  getUserPosts: protectedProcedure.query(async ({ ctx }) => {
+    const pins = await listPinned();
+
+    const postsByFid = pins?.rows.filter(
+      (pin: any) => pin.metadata.keyvalues.authorFid === ctx.session.user.id,
+    );
+
+    if (!postsByFid || postsByFid.length === 0) {
+      throw new Error("Posts not found");
+    }
+
+    return postsByFid;
+  }),
   getAllPinned: publicProcedure.query(async () => {
     const pins = await listPinned();
     return pins;

@@ -2,7 +2,7 @@
 
 import {
   SignInButton,
-  StatusAPIResponse,
+  type StatusAPIResponse,
   useProfile,
 } from "@farcaster/auth-kit";
 import { Navigation } from "./nav";
@@ -32,7 +32,8 @@ export default function Header() {
       pfp: res.pfpUrl,
       redirect: false,
     });
-    await router.refresh();
+
+    router.refresh();
   }, []);
 
   return (

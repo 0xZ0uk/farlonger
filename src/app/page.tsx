@@ -4,12 +4,9 @@ import Sidebar from "@/components/sidebar";
 import React from "react";
 import { Posts } from "./_components/posts";
 import { api } from "@/trpc/server";
-import { getServerAuthSession } from "@/server/auth";
-import Link from "next/link";
 
 export default async function Home() {
   const pins = await api.ipfs.getAllPinned();
-  const session = await getServerAuthSession();
 
   return (
     <main className="flex flex-col items-center justify-center">
