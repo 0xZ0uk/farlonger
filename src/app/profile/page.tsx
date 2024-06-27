@@ -6,21 +6,13 @@ import { HeartIcon, MessageCircleIcon, SparklesIcon } from "lucide-react";
 import Sidebar from "@/components/sidebar";
 import React from "react";
 import { api } from "@/trpc/react";
-import { useProfile } from "@farcaster/auth-kit";
 
 export default function Home() {
-  const { profile } = useProfile();
-
-  const { data: pins, refetch } = api.ipfs.getByFID.useQuery(
-    { fid: profile.fid ?? 0 },
-    {
-      enabled: !!profile.fid,
-    },
-  );
+  const { data: pins, refetch } = api.ipfs.getUserPosts.useQuery();
 
   const { mutate: unpin } = api.ipfs.unpin.useMutation({
-    onSuccess: () => {
-      refetch();
+    onSuccess: async () => {
+      await refetch();
     },
   });
 
@@ -60,9 +52,7 @@ export default function Home() {
                         username: pin.metadata.keyvalues.authorFid,
                       }}
                       href={`/post/${pin.ipfs_pin_hash}`}
-                      onDelete={() =>
-                        unpin({ cid: pin.ipfs_pin_hash, fid: profile.fid ?? 0 })
-                      }
+                      onDelete={() => unpin({ cid: pin.ipfs_pin_hash })}
                     />
                   ))}
               </div>

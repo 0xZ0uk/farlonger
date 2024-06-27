@@ -17,7 +17,7 @@ export const AvatarMenu: React.FC = () => {
   } = useProfile();
 
   const { signOut } = useSignIn({
-    onSuccess: () => console.log("signed in"),
+    onSuccess: () => console.log("signed out"),
   });
 
   return (

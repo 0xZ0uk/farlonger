@@ -99,11 +99,6 @@ export const Editor: React.FC = () => {
       title: (content?.content![0] as any)?.content![0]?.text || "",
       excerpt: (content?.content![1] as any)?.content![0]?.text || "",
       content,
-      author: {
-        fid: (profile as any)?.fid,
-        name: (profile as any)?.displayName,
-        avatar: (profile as any)?.pfpUrl,
-      },
     });
   };
 
