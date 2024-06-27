@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import {
   getServerSession,
@@ -76,17 +77,21 @@ export const authOptions: NextAuthOptions = {
           relay: env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
         });
 
+        const {
+          body: { csrfToken },
+        } = req as any;
+
         const verifyResponse = await appClient.verifySignInMessage({
-          message: credentials?.message!,
+          message: credentials?.message as string,
           signature: credentials?.signature as `0x${string}`,
-          domain: env.NEXT_PUBLIC_API_URL,
-          nonce: req.body?.csrfToken ?? "some-random-nonce",
+          domain: env.NEXT_PUBLIC_FARCASTER_DOMAIN,
+          nonce: csrfToken,
         });
 
-        const { isError, fid, error } = verifyResponse;
+        const { fid, success } = verifyResponse;
 
-        if (!!isError) {
-          throw new Error(error?.message);
+        if (!success) {
+          return null;
         }
 
         return {

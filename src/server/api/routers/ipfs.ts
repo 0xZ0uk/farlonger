@@ -68,12 +68,9 @@ export const ipfsRouter = createTRPCRouter({
     const pins = await listPinned();
 
     const postsByFid = pins?.rows.filter(
-      (pin: any) => pin.metadata.keyvalues.authorFid === ctx.session.user.id,
+      (pin: any) =>
+        pin.metadata.keyvalues.authorFid.toString() === ctx.session.user.id,
     );
-
-    if (!postsByFid || postsByFid.length === 0) {
-      throw new Error("Posts not found");
-    }
 
     return postsByFid;
   }),

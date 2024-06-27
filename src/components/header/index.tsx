@@ -31,6 +31,7 @@ export default function Header() {
       name: res.username,
       pfp: res.pfpUrl,
       redirect: false,
+      callbackUrl: "/",
     });
 
     router.refresh();
