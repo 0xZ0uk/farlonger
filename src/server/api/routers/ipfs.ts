@@ -40,7 +40,24 @@ export const ipfsRouter = createTRPCRouter({
   unpin: protectedProcedure
     .input(z.object({ cid: z.string().min(1) }))
     .mutation(async ({ input, ctx }) => {
-      await unpinFromIPFS(input.cid, ctx.session.user.id);
+      const pins = await listPinned();
+
+      const pinnedPost = pins?.rows.find(
+        (pin: any) => pin.metadata.keyvalues.cid === input.cid,
+      );
+
+      if (!pinnedPost) {
+        throw new Error("Post not found");
+      }
+
+      if (
+        pinnedPost.metadata.keyvalues.authorFid.toString() !==
+        ctx.session.user.id
+      ) {
+        throw new Error("You do not own this post");
+      }
+
+      await unpinFromIPFS(input.cid);
       return { success: true };
     }),
   getByCID: publicProcedure
