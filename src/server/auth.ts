@@ -39,6 +39,7 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    maxAge: 0,
   },
   callbacks: {
     session: ({ session, token }) => ({

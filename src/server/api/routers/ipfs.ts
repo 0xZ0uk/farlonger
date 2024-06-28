@@ -7,7 +7,6 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import type { Post } from "@/types/core";
 import {
   listPinned,
   pinJSONToIPFS,
