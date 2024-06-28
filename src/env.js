@@ -23,7 +23,6 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-    NEXT_PUBLIC_API_URL: z.string().url(),
     NEXT_PUBLIC_FARCASTER_RPC_URL: z.string().url(),
     NEXT_PUBLIC_FARCASTER_RELAY_URL: z.string().url(),
     NEXT_PUBLIC_FARCASTER_DOMAIN: z.string(),
@@ -42,7 +41,6 @@ export const env = createEnv({
     PINATA_API_KEY: process.env.PINATA_API_KEY,
     PINATA_API_SECRET: process.env.PINATA_API_SECRET,
     PINATA_JWT: process.env.PINATA_JWT,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_FARCASTER_RPC_URL: process.env.NEXT_PUBLIC_FARCASTER_RPC_URL,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
       process.env.NEXT_PUBLIC_FARCASTER_RELAY_URL,

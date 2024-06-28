@@ -1,20 +1,21 @@
-"use client";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import PostCard from "@/app/_components/post-card";
-import { HeartIcon, MessageCircleIcon, SparklesIcon } from "lucide-react";
-import Sidebar from "@/components/sidebar";
 import React from "react";
-import { api } from "@/trpc/react";
+import { HeartIcon, MessageCircleIcon, SparklesIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  const { data: pins, refetch } = api.ipfs.getUserPosts.useQuery();
+import { Posts } from "@/app/_components/posts";
+import Sidebar from "@/components/sidebar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getServerAuthSession } from "@/server/auth";
+import { api } from "@/trpc/server";
 
-  const { mutate: unpin } = api.ipfs.unpin.useMutation({
-    onSuccess: async () => {
-      await refetch();
-    },
-  });
+export default async function Profile() {
+  const session = await getServerAuthSession();
+
+  if (session) {
+    console.log("session::", session);
+  }
+
+  const pins = await api.ipfs.getUserPosts();
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -36,26 +37,7 @@ export default function Home() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="for-you">
-              <div className="space-y-4">
-                {!!pins &&
-                  pins.map((pin: any) => (
-                    <PostCard
-                      key={pin.id}
-                      title={pin.metadata.keyvalues.title}
-                      excerpt={pin.metadata.keyvalues.excerpt || ""}
-                      image={""}
-                      date={pin.date_pinned}
-                      author={{
-                        fid: pin.metadata.keyvalues.authorFid,
-                        name: pin.metadata.keyvalues.authorName,
-                        avatar: pin.metadata.keyvalues.authorPfp,
-                        username: pin.metadata.keyvalues.authorFid,
-                      }}
-                      href={`/post/${pin.ipfs_pin_hash}`}
-                      onDelete={() => unpin({ cid: pin.ipfs_pin_hash })}
-                    />
-                  ))}
-              </div>
+              {!session ? <div>NOT FOUND</div> : <Posts posts={pins} />}
             </TabsContent>
             <TabsContent value="featured">Featured (coming soon)</TabsContent>
             <TabsContent value="following">Following (coming soon)</TabsContent>
