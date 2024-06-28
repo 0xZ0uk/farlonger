@@ -1,6 +1,6 @@
 # FarLonger
 
-A sufficiently decentralized blogging platform built on top of Farcaster and IFPS.
+Is a sufficiently decentralized blogging platform built on Farcaster and IPFS.
 
 ## Built with:
 
