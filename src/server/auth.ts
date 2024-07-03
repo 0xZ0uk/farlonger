@@ -83,7 +83,7 @@ export const authOptions: NextAuthOptions = {
         } = req as any;
 
         const verifyResponse = await appClient.verifySignInMessage({
-          message: credentials?.message as string,
+          message: credentials?.message ?? "",
           signature: credentials?.signature as `0x${string}`,
           domain: env.NEXT_PUBLIC_FARCASTER_DOMAIN,
           nonce: csrfToken,

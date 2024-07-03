@@ -6,7 +6,6 @@ import {
 
 import { env } from "@/env";
 
-
 const personalAccessTokenService = new PersonalAccessTokenService({
   personalAccessToken: env.FLEEK_PAT,
   projectId: env.FLEEK_PROJECT_ID, // Optional

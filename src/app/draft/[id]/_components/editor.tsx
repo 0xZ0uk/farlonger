@@ -8,17 +8,24 @@ import { Separator } from "@/components/ui/separator";
 import { TiptapEditor } from "@/components/editor";
 import { extensionsConfig } from "@/components/editor/config";
 import { readingTime } from "@/lib/utils";
-// import { api } from "@/trpc/react";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
 
 export const Editor: React.FC = () => {
-  const [content, setContent] = React.useState<JSONContent | undefined>(
-    undefined,
-  );
+  const [body, setBody] = React.useState<JSONContent | undefined>(undefined);
 
-  const handleUpdate = useCallback((content: JSONContent) => {
-    setContent(content);
+  const handleUpdate = useCallback((body: JSONContent) => {
+    setBody(body);
   }, []);
 
+  const { mutate: create } = api.post.create.useMutation({
+    onSuccess: () => {
+      toast("success");
+    },
+    onError: (error) => {
+      toast(`error: ${error.message}`);
+    },
+  });
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -35,10 +42,15 @@ export const Editor: React.FC = () => {
   });
 
   const handleSubmit = useCallback(async () => {
-    if (!content) {
+    if (!body) {
       return;
     }
-  }, []);
+
+    create({
+      body: JSON.stringify(body),
+      title: body.content![1]?.content![0]?.text ?? "",
+    });
+  }, [body]);
 
   if (!editor) {
     return null;

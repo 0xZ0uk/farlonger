@@ -11,7 +11,6 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
-import { server as fleek } from "@/lib/fleek";
 
 /**
  * 1. CONTEXT
@@ -27,11 +26,9 @@ import { server as fleek } from "@/lib/fleek";
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
-  const storage = await fleek.storage();
 
   return {
     session,
-    storage,
     ...opts,
   };
 };

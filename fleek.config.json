@@ -1,0 +1,9 @@
+{
+  "sites": [
+    {
+      "slug": "acoustic-terabyte-wide",
+      "distDir": ".next",
+      "buildCommand": "npm run build"
+    }
+  ]
+}
