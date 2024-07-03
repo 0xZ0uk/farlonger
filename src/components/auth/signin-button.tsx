@@ -1,4 +1,3 @@
-import { isMobile } from "@/utils/user-agent";
 import {
   useProfile,
   useSignIn,
@@ -11,6 +10,7 @@ import { QRCodeDialog } from "./qrcode-dialog";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { ProfileButton } from "./profile-button";
+import { isMobile } from "@/lib/responsive";
 
 interface Props extends UseSignInArgs {
   onSignOut?: () => void;
