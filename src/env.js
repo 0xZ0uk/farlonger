@@ -21,7 +21,7 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
-    FLEEK_PAT: z.string(),
+    FLEEK_TOKEN: z.string(),
     FLEEK_PROJECT_ID: z.string(),
   },
 
@@ -47,7 +47,7 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    FLEEK_PAT: process.env.FLEEK_PAT,
+    FLEEK_TOKEN: process.env.FLEEK_TOKEN,
     FLEEK_PROJECT_ID: process.env.FLEEK_PROJECT_ID,
     NEXT_PUBLIC_FARCASTER_DOMAIN: process.env.NEXT_PUBLIC_FARCASTER_DOMAIN,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
