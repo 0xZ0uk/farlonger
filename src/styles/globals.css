@@ -1,3 +1,112 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 268 32% 9%; /* #16101E */
+    --card: 0 0% 100%;
+    --card-foreground: 268 32% 9%; /* #16101E */
+    --popover: 0 0% 100%;
+    --popover-foreground: 268 32% 9%; /* #16101E */
+    --primary: 255 43% 58%; /*	#7d66c2 */
+    --primary-foreground: 210 20% 98%;
+    --secondary: 255 43% 48%; /* #7d66b4 */
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%; /*	#f3f4f6 */
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 268 32% 9%; /* #16101E */
+    --foreground: 210 20% 98%;
+    --card: 268 32% 9%; /* #16101E */
+    --card-foreground: 210 20% 98%;
+    --popover: 268 32% 9%; /* #16101E */
+    --popover-foreground: 210 20% 98%;
+    --primary: 255 43% 58%; /*	#7d66c2 */
+    --primary-foreground: 210 20% 98%;
+    --secondary: 255 43% 48%; /* #7d66b4 */
+    --secondary-foreground: 210 20% 98%;
+    --muted: 265 30% 19%; /* #2E223F */
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 257 32% 29%; /* #3F3260 */
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 265 30% 19%; /* #2E223F */
+    --input: 265 30% 19%; /* #2E223F */
+    --ring: 263.4 70% 50.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.tiptap :first-child {
+  margin-top: 0;
+}
+
+/* Heading styles */
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  line-height: 1.1;
+  margin-top: 2.5rem;
+  text-wrap: pretty;
+}
+
+.tiptap h1.is-editor-empty:first-child::before {
+  color: hsl(var(--muted-foreground));
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap h1.is-empty::before {
+  color: hsl(var(--muted-foreground));
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap p.is-empty::before {
+  color: hsl(var(--muted-foreground));
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap h2.is-empty::before {
+  color: hsl(var(--muted-foreground));
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap img {
+  display: block;
+  border-radius: var(--radius);
+}

@@ -3,7 +3,8 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { createAppClient, viemConnector } from "@farcaster/auth-client";
 
 import { env } from "@/env";
 
@@ -34,6 +35,9 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
@@ -44,19 +48,60 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      name: "Sign in with Farcaster",
+      credentials: {
+        message: {
+          label: "Message",
+          type: "text",
+          placeholder: "0x0",
+        },
+        signature: {
+          label: "Signature",
+          type: "text",
+          placeholder: "0x0",
+        },
+        name: {
+          label: "Name",
+          type: "text",
+          placeholder: "0x0",
+        },
+        pfp: {
+          label: "Pfp",
+          type: "text",
+          placeholder: "0x0",
+        },
+      },
+      async authorize(credentials, req) {
+        const appClient = createAppClient({
+          ethereum: viemConnector(),
+          relay: env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
+        });
+
+        const {
+          body: { csrfToken },
+        } = req as any;
+
+        const verifyResponse = await appClient.verifySignInMessage({
+          message: credentials?.message as string,
+          signature: credentials?.signature as `0x${string}`,
+          domain: env.NEXT_PUBLIC_FARCASTER_DOMAIN,
+          nonce: csrfToken,
+        });
+
+        const { fid, success } = verifyResponse;
+
+        if (!success) {
+          return null;
+        }
+
+        return {
+          id: fid.toString(),
+          name: credentials?.name,
+          image: credentials?.pfp,
+        };
+      },
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
 };
 
