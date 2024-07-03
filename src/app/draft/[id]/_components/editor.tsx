@@ -26,6 +26,7 @@ export const Editor: React.FC = () => {
       toast(`error: ${error.message}`);
     },
   });
+
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -69,7 +70,7 @@ export const Editor: React.FC = () => {
             <Separator />
             <div className="flex w-full flex-col items-start gap-1.5">
               <p className="text-sm font-bold">Word Counter</p>
-              <div className="bg-mute border-muted-foreground/10 flex h-10 w-full items-center rounded-md border p-2">
+              <div className="bg-mute flex h-10 w-full items-center rounded-md border border-muted-foreground/10 p-2">
                 <p className="text-base">
                   {editor.storage.characterCount.characters()}
                 </p>
@@ -77,7 +78,7 @@ export const Editor: React.FC = () => {
             </div>
             <div className="flex w-full flex-col items-start gap-1.5">
               <p className="text-sm font-bold">Reading Time</p>
-              <div className="bg-mute border-muted-foreground/10 flex h-10 w-full items-center rounded-md border p-2">
+              <div className="bg-mute flex h-10 w-full items-center rounded-md border border-muted-foreground/10 p-2">
                 <p className="text-base">
                   {readingTime(
                     editor.storage.characterCount.characters() as number,

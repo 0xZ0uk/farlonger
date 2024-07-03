@@ -10,6 +10,8 @@ export const postRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ title: z.string(), body: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      console.log("hello");
+      const list = await ctx.fleek.storage().list();
+
+      return list;
     }),
 });
