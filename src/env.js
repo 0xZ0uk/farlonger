@@ -21,8 +21,7 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
-    FLEEK_TOKEN: z.string(),
-    FLEEK_PROJECT_ID: z.string(),
+    PINATA_JWT_KEY: z.string(),
   },
 
   /**
@@ -36,7 +35,6 @@ export const env = createEnv({
     NEXT_PUBLIC_FARCASTER_RELAY_URL: z.string().url(),
     NEXT_PUBLIC_FARCASTER_DOMAIN: z.string(),
     NEXT_PUBLIC_FARCASTER_SIWE_URI: z.string().url(),
-    NEXT_PUBLIC_FLEEK_CLIENT_ID: z.string(),
   },
 
   /**
@@ -47,14 +45,12 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    FLEEK_TOKEN: process.env.FLEEK_TOKEN,
-    FLEEK_PROJECT_ID: process.env.FLEEK_PROJECT_ID,
+    PINATA_JWT_KEY: process.env.PINATA_JWT_KEY,
     NEXT_PUBLIC_FARCASTER_DOMAIN: process.env.NEXT_PUBLIC_FARCASTER_DOMAIN,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
       process.env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
     NEXT_PUBLIC_FARCASTER_RPC_URL: process.env.NEXT_PUBLIC_FARCASTER_RPC_URL,
     NEXT_PUBLIC_FARCASTER_SIWE_URI: process.env.NEXT_PUBLIC_FARCASTER_SIWE_URI,
-    NEXT_PUBLIC_FLEEK_CLIENT_ID: process.env.NEXT_PUBLIC_FLEEK_CLIENT_ID,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

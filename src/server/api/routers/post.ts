@@ -5,14 +5,17 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { server } from "@/lib/fleek/server";
 
 export const postRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ title: z.string(), body: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const list = await server.storage().list();
+      const { title, body } = input;
 
-      return list;
+      return {
+        title,
+        body,
+        id: ctx.session.user.id,
+      };
     }),
 });
