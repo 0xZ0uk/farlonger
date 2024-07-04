@@ -9,6 +9,10 @@ import { reduceContent } from "@/lib/tiptap-helpers";
 import Image from "next/image";
 import { api } from "@/trpc/react";
 import Link from "next/link";
+import { format } from "date-fns";
+import { Separator } from "@/components/ui/separator";
+import { BookIcon } from "lucide-react";
+import { readingTime } from "@/lib/utils";
 
 interface Props {
   post: any;
@@ -33,6 +37,14 @@ export const Reader: React.FC<Props> = ({ post }) => {
     );
   }, [post]);
 
+  const content = post.content.filter((item: any) => item.type !== "image");
+  const contentContents = content.map((item: any) => item.content);
+  const charCount = contentContents.reduce((acc: number, item: any) => {
+    return reduceContent(item).length + acc;
+  }, 0);
+
+  const readTime = readingTime(charCount);
+
   if (!post) return null;
   if (!output) return null;
   if (!user) return null;
@@ -56,31 +68,42 @@ export const Reader: React.FC<Props> = ({ post }) => {
         />
       )}
       <h1 className="text-6xl font-bold">{title}</h1>
-      <div className="flex items-center gap-2">
-        <Image
-          src={user.pfp_url ?? "https://warpcast.com/avatar.png"}
-          alt={user.display_name}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-        <div>
-          <p className="text-sm font-bold">{user.display_name}</p>
-          <div className="flex gap-2 text-sm">
-            <Link
-              className="text-sm font-semibold text-primary"
-              href={`https://farlonger.xyz/user/${user.username}`}
-            >
-              @{user.username}
-            </Link>
-            <Link
-              className="text-sm underline"
-              href={`https://warpcast.com/${user.username}`}
-              target="_blank"
-            >
-              Warpcast
-            </Link>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Image
+            src={user.pfp_url ?? "https://warpcast.com/avatar.png"}
+            alt={user.display_name}
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+          <div>
+            <p className="text-sm font-bold">{user.display_name}</p>
+            <div className="flex gap-2 text-sm">
+              <Link
+                className="text-sm font-semibold text-primary"
+                href={`https://farlonger.xyz/user/${user.username}`}
+              >
+                @{user.username}
+              </Link>
+              <Link
+                className="text-sm underline"
+                href={`https://warpcast.com/${user.username}`}
+                target="_blank"
+              >
+                Warpcast
+              </Link>
+            </div>
           </div>
+        </div>
+        <Separator orientation="vertical" className="mx-1 h-8 w-px bg-muted" />
+        <div>{format(new Date(post.metadata.createdAt), "MMMM dd, yyyy")}</div>
+        <Separator orientation="vertical" className="mx-1 h-8 w-px bg-muted" />
+        <div className="flex items-center gap-2">
+          <BookIcon className="h-6 w-6" />
+          <p>
+            {readTime} {readTime === 1 ? "min" : "mins"} read
+          </p>
         </div>
       </div>
       <div
