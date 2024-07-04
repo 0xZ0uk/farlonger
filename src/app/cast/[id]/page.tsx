@@ -5,7 +5,7 @@ import { reduceContent } from "@/lib/tiptap-helpers";
 
 type Props = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string>;
 };
 
 export default async function Cast({ params }: Props) {
