@@ -52,7 +52,11 @@ export async function generateMetadata(
     title: `${title} | Farlonger`,
     description: subtitle,
     openGraph: {
+      type: "website",
+      locale: "en_US",
       title: `${title} | Farlonger`,
+      url: "https://farlonger.xyz",
+      siteName: "Farlonger",
       description: subtitle,
       images: [
         {
