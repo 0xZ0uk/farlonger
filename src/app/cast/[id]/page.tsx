@@ -60,7 +60,7 @@ export async function generateMetadata(
       description: subtitle,
       images: [
         {
-          url: `https://farlonger.vercel.app/api/og?title=${title}&description=${subtitle}`,
+          url: `https://farlonegr.xyz/api/og`,
           alt: title,
           width: 1200,
           height: 630,
