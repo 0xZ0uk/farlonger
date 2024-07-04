@@ -21,7 +21,7 @@ export async function generateMetadata(
   });
 
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+  const previousImages = (await parent).openGraph?.images ?? [];
 
   return {
     title: "A Farlonger Post",
