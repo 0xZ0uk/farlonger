@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme/provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import AuthProvider from "@/components/auth/provider";
 import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
@@ -24,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -42,6 +43,7 @@ export default function RootLayout({
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -49,6 +49,7 @@
     "@trpc/client": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
+    "@vercel/speed-insights": "^1.0.12",
     "@web3-storage/w3up-client": "^15.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
