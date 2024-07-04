@@ -26,7 +26,7 @@ export async function generateMetadata(
   return {
     title: "A Farlonger Post",
     openGraph: {
-      images: ["/og.jpg", ...previousImages],
+      images: ["https://farlong.xyz/og.jpg", ...previousImages],
     },
   };
 }
