@@ -35,12 +35,12 @@ export const ReaderActions: React.FC<Props> = ({
   onRecast,
 }) => {
   return (
-    <div className="fixed bottom-8 flex h-16 w-fit items-center justify-start gap-3 rounded-lg border border-muted bg-muted px-3">
+    <div className="fixed bottom-8 flex h-16 w-fit items-center justify-start gap-3 rounded-lg border  bg-muted px-3">
       <Button className="gap-2" onClick={onRecast}>
         <Image src="/farcaster.svg" width={15} height={15} alt="Recast" />
         Recast
       </Button>
-      <Separator orientation="vertical" />
+      <Separator orientation="vertical" className="dark:bg-border/50" />
       <Button variant="outline" className="gap-2">
         <MessageCircleIcon className="h-5 w-5 text-muted-foreground" />
         {commentCount}
@@ -48,7 +48,7 @@ export const ReaderActions: React.FC<Props> = ({
       <Button variant="outline" className="gap-2">
         <HeartIcon className="h-5 w-5 text-muted-foreground" /> {likeCount}
       </Button>
-      <Separator orientation="vertical" />
+      <Separator orientation="vertical" className="dark:bg-border/50" />
       <Button size="icon" variant="outline">
         <BookmarkPlusIcon className="h-5 w-5 text-muted-foreground" />
       </Button>
