@@ -53,7 +53,7 @@ export async function generateMetadata(
     description: subtitle,
     openGraph: {
       images: [
-        `https://farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
+        `https://www.farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
         image,
         ...previousImages,
       ],
