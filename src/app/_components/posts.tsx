@@ -83,9 +83,11 @@ const PostItem: React.FC<PostItemProps> = ({
   return (
     <div className="flex h-80 w-full items-center overflow-hidden rounded-lg border border-muted">
       <div className="flex h-full w-full basis-1/2 flex-col items-start justify-between p-6">
-        <div className="h-fit w-fit cursor-pointer rounded-sm bg-muted px-2 py-1 text-xs text-foreground/80 hover:bg-primary">
-          /{channel}
-        </div>
+        <Link href={`/channel/${channel}`}>
+          <div className="h-fit w-fit cursor-pointer rounded-sm bg-muted px-2 py-1 text-xs text-foreground/80 hover:bg-primary">
+            /{channel}
+          </div>
+        </Link>
         <Link href={`/cast/${id}`}>
           <h2 className="mt-2 cursor-pointer text-3xl font-bold hover:opacity-90">
             {title}

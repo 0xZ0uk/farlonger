@@ -6,7 +6,7 @@ import { type JSONContent, useEditor } from "@tiptap/react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TiptapEditor } from "@/components/editor";
-import { extensionsConfig } from "@/components/editor/config";
+import { extensionsConfig, editorExtensions } from "@/components/editor/config";
 import { readingTime } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
@@ -34,7 +34,7 @@ export const Editor: React.FC = () => {
           "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none dark:prose-invert",
       },
     },
-    extensions: [...extensionsConfig],
+    extensions: [...extensionsConfig, ...editorExtensions],
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
       console.log(json);
