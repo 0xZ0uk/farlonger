@@ -3,7 +3,7 @@
 import { Document } from "@tiptap/extension-document";
 
 import { generateHTML } from "@tiptap/react";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { extensionsConfig } from "@/components/editor/config";
 import { reduceContent } from "@/lib/tiptap-helpers";
 import Image from "next/image";
@@ -13,12 +13,14 @@ import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
 import { BookIcon } from "lucide-react";
 import { readingTime } from "@/lib/utils";
+import { ReaderActions } from "./reader-actions";
 
 interface Props {
   post: any;
+  cid: string;
 }
 
-export const Reader: React.FC<Props> = ({ post }) => {
+export const Reader: React.FC<Props> = ({ post, cid }) => {
   const { data: user } = api.user.getUserByFID.useQuery({
     fid: post.metadata.fid,
   });
@@ -45,9 +47,24 @@ export const Reader: React.FC<Props> = ({ post }) => {
 
   const readTime = readingTime(charCount);
 
+  const handleRecast = useCallback(() => {
+    if (!post) return;
+
+    const message = encodeURI(
+      `${title} by "${user?.display_name}" from `.concat("@farlonger"),
+    );
+
+    window.open(
+      `https://warpcast.com/~/compose?text=${message}&embeds[]=https://farlonger.xyz/post/${cid}`,
+      "_blank",
+    );
+  }, [post, user]);
+
   if (!post) return null;
   if (!output) return null;
   if (!user) return null;
+
+  console.log(post);
 
   const image =
     post.content[0].type === "image" ? post.content[0].attrs : undefined;
@@ -109,6 +126,11 @@ export const Reader: React.FC<Props> = ({ post }) => {
       <div
         dangerouslySetInnerHTML={{ __html: output }}
         className="prose mx-auto w-2/3 max-w-[1200px] dark:prose-invert"
+      />
+      <ReaderActions
+        onRecast={handleRecast}
+        likeCount={post.metadata.likeCount}
+        commentCount={post.metadata.commentCount}
       />
     </div>
   );

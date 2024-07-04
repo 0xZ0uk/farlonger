@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { Reader } from "./_components/reader";
 import { api } from "@/trpc/server";
 import { reduceContent } from "@/lib/tiptap-helpers";
+import { ReaderActions } from "./_components/reader-actions";
 
 type Props = {
   params: { cid: string };
@@ -56,7 +57,7 @@ export default async function Cast({ params, searchParams }: Props) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 px-8 pt-28 sm:px-12 lg:px-24">
       <div className="w-full pt-8">
-        <Reader post={post} />
+        <Reader post={post} cid={params.cid} />
       </div>
     </div>
   );
