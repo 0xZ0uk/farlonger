@@ -9,10 +9,14 @@ type Props = {
 };
 
 export default async function Cast({ params }: Props) {
+  const post = await api.post.getPostByCID({
+    cid: params.id,
+  });
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 px-8 pt-28 sm:px-12 lg:px-24">
       <div className="w-full pt-8">
-        <Reader cid={params.id} />
+        <Reader post={post} />
       </div>
     </div>
   );
@@ -50,10 +54,10 @@ export async function generateMetadata(
   };
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams({ params }: Props) {
   return [
     {
-      cid: "bagaaieramioxlmj245b545eo3sbadnc6mvk6zmbcyjva7uxjzwmsbvdkwckq",
+      cid: params.id,
     },
   ];
 }

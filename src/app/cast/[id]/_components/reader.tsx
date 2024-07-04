@@ -2,7 +2,6 @@
 
 import { Document } from "@tiptap/extension-document";
 
-import { api } from "@/trpc/react";
 import { generateHTML } from "@tiptap/react";
 import React, { useMemo } from "react";
 import { extensionsConfig } from "@/components/editor/config";
@@ -10,15 +9,10 @@ import { reduceContent } from "@/lib/tiptap-helpers";
 import Image from "next/image";
 
 interface Props {
-  cid: string;
+  post: any;
 }
 
-export const Reader: React.FC<Props> = ({ cid }) => {
-  const { data: post } = api.post.getPostByCID.useQuery({
-    cid,
-  });
-
-  // Filter out the first two items in the post's content array
+export const Reader: React.FC<Props> = ({ post }) => {
   const render = post?.content.filter((_item: any, idx: number) => idx > 1);
 
   const output = useMemo(() => {
