@@ -120,7 +120,7 @@ export const postRouter = createTRPCRouter({
   }),
   getPostByCID: publicProcedure
     .input(z.object({ cid: z.string() }))
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       const res = await fetch(`${env.PINATA_GATEWAY}/${input.cid}`, {
         method: "GET",
         headers: {
@@ -128,8 +128,21 @@ export const postRouter = createTRPCRouter({
         },
       });
 
-      const post = res.json();
+      const metadata = await ctx.pinata.pinList({
+        hashContains: input.cid,
+        metadata: {
+          keyvalues: {
+            version: {
+              value: env.FARLONGER_VERSION,
+              op: "eq",
+            },
+          },
+        },
+        pageLimit: 100,
+      });
 
-      return post;
+      const post = await res.json();
+
+      return { ...post, metadata: metadata.rows[0]?.metadata.keyvalues };
     }),
 });

@@ -99,7 +99,6 @@ export const extensionsConfig = [
   Underline,
   Bold,
   Italic,
-  Document,
   Blockquote,
   BulletList,
   ListItem,

@@ -38,12 +38,12 @@ export const Editor: React.FC = () => {
       );
 
       window.open(
-        `https://warpcast.com/~/compose?text=${message}&embeds[]=https://farlonger.xyz/cast/${data.cid}`,
+        `https://warpcast.com/~/compose?text=${message}&embeds[]=https://farlonger.xyz/post/${data.cid}`,
         "_blank",
       );
 
       setTimeout(() => {
-        router.push(`/cast/${data.cid}`);
+        router.push(`/post/${data.cid}`);
       }, 1000);
     },
     onError: (error) => {

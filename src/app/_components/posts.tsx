@@ -82,7 +82,7 @@ const PostItem: React.FC<PostItemProps> = ({
             /{channel}
           </div>
         </Link>
-        <Link href={`/cast/${id}`}>
+        <Link href={`/post/${id}`}>
           <h2 className="mt-2 cursor-pointer text-3xl font-bold hover:opacity-90">
             {title}
           </h2>
@@ -124,7 +124,7 @@ const PostItem: React.FC<PostItemProps> = ({
       <div className="flex w-full basis-1/2 justify-end">
         {!!image && (
           <div className="h-80 min-w-96 cursor-pointer overflow-hidden rounded-r-lg bg-muted bg-center">
-            <Link href={`/cast/${id}`}>
+            <Link href={`/post/${id}`}>
               <Image
                 src={image}
                 alt={title}
