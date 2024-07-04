@@ -43,13 +43,16 @@ export async function generateMetadata(
 
   const subtitle =
     post.content![0]?.type === "heading"
-      ? reduceContent(post.content![1]?.content)
-      : reduceContent(post.content![2]?.content);
+      ? reduceContent(post.content![1]?.content).slice(0, 150).trim()
+      : reduceContent(post.content![2]?.content).slice(0, 150).trim();
 
   return {
-    title: `${reduceContent(post.content[1].content)} | Farlonger`,
+    title: `${title} | Farlonger`,
+    description: subtitle,
     openGraph: {
-      images: [`/api/og?title=${title}&description=${subtitle}`],
+      images: [
+        `https://farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
+      ],
     },
   };
 }
