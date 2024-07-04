@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { BookIcon } from "lucide-react";
 import { readingTime } from "@/lib/utils";
 import { ReaderActions } from "./reader-actions";
+import { ReaderTOC } from "./reader-toc";
 
 interface Props {
   post: any;
@@ -63,8 +64,6 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
   if (!post) return null;
   if (!output) return null;
   if (!user) return null;
-
-  console.log(post);
 
   const image =
     post.content[0].type === "image" ? post.content[0].attrs : undefined;
@@ -123,6 +122,7 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
           </p>
         </div>
       </div>
+
       <div
         dangerouslySetInnerHTML={{ __html: output }}
         className="prose mx-auto w-2/3 max-w-[1200px] dark:prose-invert"
