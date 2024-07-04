@@ -47,10 +47,6 @@ export const postRouter = createTRPCRouter({
       pageLimit: 100,
       metadata: {
         keyvalues: {
-          channel: {
-            value: "test-dev",
-            op: "eq",
-          },
           version: {
             value: env.FARLONGER_VERSION,
             op: "eq",

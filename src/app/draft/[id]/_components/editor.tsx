@@ -10,9 +10,12 @@ import { extensionsConfig, editorExtensions } from "@/components/editor/config";
 import { readingTime } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
+import { reduceContent } from "@/lib/tiptap-helpers";
+import { useRouter } from "next/navigation";
 
 export const Editor: React.FC = () => {
   const [body, setBody] = React.useState<JSONContent | undefined>(undefined);
+  const router = useRouter();
 
   const handleUpdate = useCallback((body: JSONContent) => {
     setBody(body);
@@ -21,6 +24,10 @@ export const Editor: React.FC = () => {
   const { mutate: create } = api.post.create.useMutation({
     onSuccess: () => {
       toast("success");
+
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     },
     onError: (error) => {
       toast(`error: ${error.message}`);
@@ -37,7 +44,6 @@ export const Editor: React.FC = () => {
     extensions: [...extensionsConfig, ...editorExtensions],
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
-      console.log(json);
       handleUpdate(json);
     },
     content: "<h1></h1><p></p>",
@@ -56,12 +62,12 @@ export const Editor: React.FC = () => {
             : undefined,
         title:
           (body.content![0]?.type === "heading"
-            ? body.content![0]?.content![0]?.text
-            : body.content![1]?.content![0]?.text) ?? "",
+            ? reduceContent(body.content![0].content)
+            : reduceContent(body.content![1]?.content)) ?? "",
         subtitle:
           (body.content![0]?.type === "heading"
-            ? body.content![1]?.content![0]?.text
-            : body.content![2]?.content![0]?.text) ?? "",
+            ? reduceContent(body.content![1]?.content)
+            : reduceContent(body.content![2]?.content)) ?? "",
       },
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       body: JSON.parse(JSON.stringify(body)),
