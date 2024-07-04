@@ -13,13 +13,6 @@ export const mainMetadata: Metadata = {
     description:
       "A sufficiently decentralized blogging platform built on Farcaster and IPFS.",
     siteName: "Farlonger",
-    images: [
-      {
-        url: "https://farlonger.xyz/og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Farlonger",
-      },
-    ],
+    images: [{ url: "https://farlonger.xyz/og.jpg", width: 1200, height: 630 }],
   },
 };
