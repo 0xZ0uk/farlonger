@@ -34,7 +34,7 @@ export const postRouter = createTRPCRouter({
           likeCount: 0,
           featuredImage,
           subtitle,
-          version: "0.0.2",
+          version: env.FARLONGER_VERSION,
         },
       };
 
@@ -56,7 +56,7 @@ export const postRouter = createTRPCRouter({
             op: "eq",
           },
           version: {
-            value: "0.0.2",
+            value: env.FARLONGER_VERSION,
             op: "eq",
           },
         },
@@ -73,6 +73,10 @@ export const postRouter = createTRPCRouter({
           keyvalues: {
             fid: {
               value: input.fid,
+              op: "eq",
+            },
+            version: {
+              value: env.FARLONGER_VERSION,
               op: "eq",
             },
           },
@@ -93,6 +97,10 @@ export const postRouter = createTRPCRouter({
               value: input.channel,
               op: "eq",
             },
+            version: {
+              value: env.FARLONGER_VERSION,
+              op: "eq",
+            },
           },
         },
       });
@@ -105,6 +113,10 @@ export const postRouter = createTRPCRouter({
         keyvalues: {
           fid: {
             value: ctx.session.user.id,
+            op: "eq",
+          },
+          version: {
+            value: env.FARLONGER_VERSION,
             op: "eq",
           },
         },
