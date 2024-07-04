@@ -1,47 +1,13 @@
-import { Metadata, ResolvingMetadata } from "next";
 import { Reader } from "./_components/reader";
 import { api } from "@/trpc/server";
-import { reduceContent } from "@/lib/tiptap-helpers";
+import { mainMetadata } from "@/components/metadata";
 
 type Props = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  // read route params
-  const id = params.id;
-
-  // fetch data
-  const post = await api.post.getPostByCID({
-    cid: id,
-  });
-
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images ?? [];
-
-  return {
-    title: "Farlonger",
-    description:
-      "A sufficiently decentralized blogging platform built on Farcaster and IPFS.",
-    icons: [{ rel: "icon", url: "/favicon.ico" }],
-    openGraph: {
-      type: "website",
-      locale: "en_US",
-      url: "https://farlonger.xyz",
-      title: "Farlonger",
-      description:
-        "A sufficiently decentralized blogging platform built on Farcaster and IPFS.",
-      siteName: "Farlonger",
-      images: [
-        { url: "https://farlonger.xyz/og.jpg", width: 1200, height: 630 },
-      ],
-    },
-  };
-}
+export const metadata = mainMetadata;
 
 export default async function Cast({ params, searchParams }: Props) {
   const post = await api.post.getPostByCID({
