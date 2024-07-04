@@ -1,9 +1,6 @@
 import { Sidebar } from "@/components/sidebar";
 import { api } from "@/trpc/server";
-import { mainMetadata } from "@/components/metadata";
 import Main from "./_components/ main";
-
-export const metadata = mainMetadata;
 
 export default async function Home() {
   const posts = await api.post.getLatest();

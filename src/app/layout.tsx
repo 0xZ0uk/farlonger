@@ -6,8 +6,11 @@ import { Toaster } from "@/components/ui/sonner";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { TRPCReactProvider } from "@/trpc/react";
+import { mainMetadata } from "@/components/metadata";
 
 import "@/styles/globals.css";
+
+export const metadata = mainMetadata;
 
 export default function RootLayout({
   children,
