@@ -37,6 +37,7 @@ export const Editor: React.FC = () => {
     extensions: [...extensionsConfig],
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
+      console.log(json);
       handleUpdate(json);
     },
     content: "<h1></h1><p></p>",
@@ -48,9 +49,21 @@ export const Editor: React.FC = () => {
     }
 
     create({
-      featuredImage: (body.content![0]?.attrs?.src as string) ?? "",
-      title: body.content![1]?.content![0]?.text ?? "",
-      subtitle: body.content![2]?.content![0]?.text ?? "",
+      metadata: {
+        featuredImage:
+          body.content![0]?.type === "image"
+            ? (body.content![0]?.attrs?.src as string)
+            : undefined,
+        title:
+          (body.content![0]?.type === "heading"
+            ? body.content![0]?.content![0]?.text
+            : body.content![1]?.content![0]?.text) ?? "",
+        subtitle:
+          (body.content![0]?.type === "heading"
+            ? body.content![1]?.content![0]?.text
+            : body.content![2]?.content![0]?.text) ?? "",
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       body: JSON.parse(JSON.stringify(body)),
     });
   }, [body]);

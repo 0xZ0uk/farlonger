@@ -7,34 +7,30 @@ import {
 } from "@/server/api/trpc";
 import type { PinataMetadata } from "@pinata/sdk";
 import { env } from "@/env";
-
-const postSchema = z.object({
-  title: z.string(),
-  body: z.any(),
-  subtitle: z.string().optional(),
-  featuredImage: z.string().optional(),
-  channel: z.string().optional(),
-});
+import { PostInputSchema } from "@/types/core";
 
 export const postRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(postSchema)
+    .input(PostInputSchema)
     .mutation(async ({ input, ctx }) => {
-      const { title, body, channel, subtitle, featuredImage } = input;
+      const {
+        body,
+        metadata: { title, channel, subtitle, featuredImage },
+      } = input;
 
       const metadata: PinataMetadata = {
         name: "postMetadata",
         // @ts-expect-error PinataMetadata type is wrong
         keyvalues: {
           title,
-          channel: channel ?? "test-dev",
+          channel: channel ?? "everyone",
           createdAt: new Date().toISOString(),
           fid: ctx.session.user.id,
-          commentCount: 0,
-          likeCount: 0,
           featuredImage,
           subtitle,
           version: env.FARLONGER_VERSION,
+          commentCount: 0,
+          likeCount: 0,
         },
       };
 
