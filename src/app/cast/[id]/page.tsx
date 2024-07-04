@@ -5,7 +5,7 @@ import { reduceContent } from "@/lib/tiptap-helpers";
 
 type Props = {
   params: { id: string };
-  searchParams: Record<string, string>;
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function Cast({ params, searchParams }: Props) {
@@ -56,7 +56,8 @@ export async function generateMetadata(
       description: subtitle,
       images: [
         {
-          url: `https://www.farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
+          url: `https://farlonger.vercel.app/api/og?title=${title}&description=${subtitle}`,
+          alt: title,
           width: 1200,
           height: 630,
         },
@@ -64,4 +65,8 @@ export async function generateMetadata(
       ],
     },
   };
+}
+
+export async function generateStaticParams() {
+  return [];
 }

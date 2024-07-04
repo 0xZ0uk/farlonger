@@ -19,6 +19,7 @@ const config = {
     "@typescript-eslint/no-unsafe-argument": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "@typescript-eslint/consistent-indexed-object-style": "off",
 
     // Default
     "@typescript-eslint/no-empty-interface": "off",

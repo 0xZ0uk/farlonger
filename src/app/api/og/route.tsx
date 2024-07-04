@@ -26,13 +26,6 @@ export async function GET(request: Request) {
       searchParams.get("description") ??
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus urna sem, eleifend sit amet molestie a, congue ac ligula. Proin.";
 
-    const authorPfp =
-      searchParams.get("pfp") ??
-      "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4a0215ca-c788-4164-e949-483c1116f200/rectcrop3";
-
-    const name = searchParams.get("name") ?? "Pedro Santana";
-    const username = searchParams.get("username") ?? "z0uk";
-
     return new ImageResponse(
       (
         <div
@@ -55,43 +48,6 @@ export async function GET(request: Request) {
               <span tw="text-[#7d66c2]">Far</span>Longer
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              <div
-                style={{ display: "flex", gap: 20, alignItems: "center" }}
-                tw="mb-8"
-              >
-                {!!authorPfp && (
-                  <img
-                    width="384"
-                    height="384"
-                    src={authorPfp}
-                    alt={"author"}
-                    tw="w-24 h-24 rounded-full"
-                  />
-                )}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    gap: 0,
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontFamily: "Poppins Bold",
-                    }}
-                    tw="text-white py-0 my-0 -mb-3 text-4xl font-bold"
-                  >
-                    {name}
-                  </h3>
-                  <p
-                    tw="text-white/80 py-0 my-0 text-xl"
-                    style={{ fontFamily: "Open Sans" }}
-                  >
-                    @{username}
-                  </p>
-                </div>
-              </div>
               <h1
                 style={{
                   fontFamily: "Poppins Bold",
