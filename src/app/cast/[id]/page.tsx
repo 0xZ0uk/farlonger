@@ -53,11 +53,3 @@ export async function generateMetadata(
     },
   };
 }
-
-export async function generateStaticParams({ params }: Props) {
-  return [
-    {
-      cid: params.id,
-    },
-  ];
-}
