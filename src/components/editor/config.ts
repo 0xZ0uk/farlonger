@@ -17,7 +17,7 @@ import { CommandsExtension } from "./extensions/commands";
 import suggestion from "./extensions/commands/suggestion";
 
 const CustomDocument = Document.extend({
-  content: "image heading block* ",
+  content: "image* heading block*",
 });
 
 export const extensionsConfig = [
@@ -73,9 +73,9 @@ export const extensionsConfig = [
       class: "!my-2",
     },
   }),
+  Image.configure({}),
 
   // Default
-  Image,
   Text,
   CharacterCount,
   Underline,

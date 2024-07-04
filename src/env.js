@@ -21,7 +21,10 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
+    PINATA_GATEWAY: z.string(),
+    PINATA_GATEWAY_TOKEN: z.string(),
     PINATA_JWT_KEY: z.string(),
+    FARLONGER_VERSION: z.string(),
   },
 
   /**
@@ -45,7 +48,10 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    PINATA_GATEWAY: process.env.PINATA_GATEWAY,
+    PINATA_GATEWAY_TOKEN: process.env.PINATA_GATEWAY_TOKEN,
     PINATA_JWT_KEY: process.env.PINATA_JWT_KEY,
+    FARLONGER_VERSION: process.env.FARLONGER_VERSION,
     NEXT_PUBLIC_FARCASTER_DOMAIN: process.env.NEXT_PUBLIC_FARCASTER_DOMAIN,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
       process.env.NEXT_PUBLIC_FARCASTER_RELAY_URL,

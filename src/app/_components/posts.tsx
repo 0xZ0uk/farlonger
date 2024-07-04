@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   BookmarkPlusIcon,
   HeartIcon,
@@ -9,9 +11,10 @@ import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import type { PinataPin } from "@pinata/sdk";
 
 interface Props {
-  posts: Post[];
+  posts: PinataPin[];
   onBookmark: (id: string) => void;
   onRecast: (id: string) => void;
   onLike: (id: string) => void;
@@ -30,7 +33,13 @@ export const Posts: React.FC<Props> = ({
       {posts.map((post) => (
         <PostItem
           key={post.id}
-          {...post}
+          id={post.ipfs_pin_hash}
+          channel={(post.metadata.keyvalues as any).channel as string}
+          title={(post.metadata.keyvalues as any).title as string}
+          subtitle={(post.metadata.keyvalues as any).subtitle as string}
+          image={(post.metadata.keyvalues as any).featuredImage as string}
+          likeCount={(post.metadata.keyvalues as any).likeCount as number}
+          commentCount={(post.metadata.keyvalues as any).commentCount as number}
           onBookmark={onBookmark}
           onRecast={onRecast}
           onLike={onLike}
@@ -117,19 +126,19 @@ const PostItem: React.FC<PostItemProps> = ({
         </div>
       </div>
       <div className="flex w-full basis-1/2 justify-end">
-        <div className="aspect-square h-80 w-80 cursor-pointer overflow-hidden rounded-r-lg bg-muted bg-center">
-          {!!image && (
+        {!!image && (
+          <div className="h-80 min-w-96 cursor-pointer overflow-hidden rounded-r-lg bg-muted bg-center">
             <Link href={`/cast/${id}`}>
               <Image
                 src={image}
                 alt={title}
                 width={1080}
                 height={1080}
-                className="h-full w-full bg-contain bg-center"
+                className="h-full w-full  object-cover"
               />
             </Link>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

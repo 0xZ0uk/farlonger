@@ -16,6 +16,10 @@ const config = {
         hostname: "images.unsplash.com",
         protocol: "https",
       },
+      {
+        hostname: "warpcast.com",
+        protocol: "https",
+      },
     ],
   },
 };

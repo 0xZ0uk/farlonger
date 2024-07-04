@@ -39,7 +39,7 @@ export const Editor: React.FC = () => {
       const json = editor.getJSON();
       handleUpdate(json);
     },
-    content: "<img src='' /> <h1></h1> <p></p>",
+    content: "<h1></h1><p></p>",
   });
 
   const handleSubmit = useCallback(async () => {
@@ -48,8 +48,10 @@ export const Editor: React.FC = () => {
     }
 
     create({
-      body: JSON.stringify(body),
+      featuredImage: (body.content![0]?.attrs?.src as string) ?? "",
       title: body.content![1]?.content![0]?.text ?? "",
+      subtitle: body.content![2]?.content![0]?.text ?? "",
+      body: JSON.parse(JSON.stringify(body)),
     });
   }, [body]);
 
@@ -58,7 +60,7 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 pt-28 sm:px-12 lg:px-24">
+    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 py-28 sm:px-12 lg:px-24">
       <section className="flex w-full gap-12">
         <div className="basis-3/4">
           <TiptapEditor editor={editor} />

@@ -21,14 +21,18 @@ export const EditorHeader: React.FC<{ editor: Editor }> = ({ editor }) => {
         reader.onload = () => {
           editor
             .chain()
-            .focus()
-            .setImage({ src: reader.result as string })
+            .focus("start")
+            .setImage({ src: reader.result as string, alt: file.name })
             .run();
         };
       }
     },
     [editor],
   );
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <div className="mb-12">
