@@ -8,7 +8,7 @@ type Props = {
   searchParams: Record<string, string>;
 };
 
-export default async function Cast({ params }: Props) {
+export default async function Cast({ params, searchParams }: Props) {
   const post = await api.post.getPostByCID({
     cid: params.id,
   });
@@ -33,6 +33,8 @@ export async function generateMetadata(
     cid: id,
   });
 
+  const previousImages = (await parent).openGraph?.images ?? [];
+
   const image =
     post.content![0]?.type === "image" && post.content![0]?.attrs.src;
 
@@ -52,6 +54,8 @@ export async function generateMetadata(
     openGraph: {
       images: [
         `https://farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
+        image,
+        ...previousImages,
       ],
     },
   };
