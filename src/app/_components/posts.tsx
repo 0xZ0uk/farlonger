@@ -12,6 +12,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import type { PinataPin } from "@pinata/sdk";
+import { api } from "@/trpc/react";
 
 interface Props {
   posts: PinataPin[];
@@ -26,6 +27,7 @@ export const Posts: React.FC<Props> = ({ posts }) => {
     <div className="flex min-h-96 w-full flex-col items-center gap-4">
       {posts.map((post) => (
         <PostItem
+          fid={(post.metadata.keyvalues as any).fid as string}
           key={post.id}
           id={post.ipfs_pin_hash}
           channel={(post.metadata.keyvalues as any).channel as string}
@@ -35,7 +37,6 @@ export const Posts: React.FC<Props> = ({ posts }) => {
           likeCount={(post.metadata.keyvalues as any).likeCount as number}
           commentCount={(post.metadata.keyvalues as any).commentCount as number}
           onBookmark={todo}
-          onRecast={todo}
           onLike={todo}
           onComment={todo}
         />
@@ -52,11 +53,11 @@ type Post = {
   image?: string;
   likeCount: number;
   commentCount: number;
+  fid: string;
 };
 
 interface PostItemProps extends Post {
   onBookmark: (id: string) => void;
-  onRecast: (id: string) => void;
   onLike: (id: string) => void;
   onComment: (id: string) => void;
 }
@@ -68,12 +69,29 @@ const PostItem: React.FC<PostItemProps> = ({
   subtitle,
   image,
   likeCount,
+  fid,
   commentCount,
   onBookmark,
-  onRecast,
   onLike,
   onComment,
 }) => {
+  const { data: user } = api.user.getUserByFID.useQuery({
+    fid,
+  });
+
+  const handleRecast = React.useCallback(() => {
+    if (!user) return;
+
+    const message = encodeURI(
+      `${title} by "${user?.display_name}" from `.concat("@farlonger"),
+    );
+
+    window.open(
+      `https://warpcast.com/~/compose?text=${message}&embeds[]=https://farlonger.xyz/post/${id}`,
+      "_blank",
+    );
+  }, [user, id, title]);
+
   return (
     <div className="flex h-80 w-full items-center overflow-hidden rounded-lg border border-muted">
       <div className="flex h-full w-full basis-1/2 flex-col items-start justify-between p-6">
@@ -94,7 +112,7 @@ const PostItem: React.FC<PostItemProps> = ({
             .concat(subtitle?.length > 100 ? "..." : "")}
         </p>
         <div className="flex items-center gap-2">
-          <Button className="gap-1" size="sm" onClick={() => onRecast(id)}>
+          <Button className="gap-1" size="sm" onClick={handleRecast}>
             <RefreshCcwIcon className="h-3.5 w-3.5" /> Recast
           </Button>
           <Button

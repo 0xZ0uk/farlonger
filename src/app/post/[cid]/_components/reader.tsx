@@ -122,7 +122,6 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
           </p>
         </div>
       </div>
-
       <div
         dangerouslySetInnerHTML={{ __html: output }}
         className="prose mx-auto w-2/3 max-w-[1200px] dark:prose-invert"
