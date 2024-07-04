@@ -24,9 +24,21 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images ?? [];
 
   return {
-    title: "A Farlonger Post",
+    title: "Farlonger",
+    description:
+      "A sufficiently decentralized blogging platform built on Farcaster and IPFS.",
+    icons: [{ rel: "icon", url: "/favicon.ico" }],
     openGraph: {
-      images: ["https://farlong.xyz/og.jpg", ...previousImages],
+      type: "website",
+      locale: "en_US",
+      url: "https://farlonger.xyz",
+      title: "Farlonger",
+      description:
+        "A sufficiently decentralized blogging platform built on Farcaster and IPFS.",
+      siteName: "Farlonger",
+      images: [
+        { url: "https://farlonger.xyz/og.jpg", width: 1200, height: 630 },
+      ],
     },
   };
 }
