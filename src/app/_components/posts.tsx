@@ -15,19 +15,13 @@ import type { PinataPin } from "@pinata/sdk";
 
 interface Props {
   posts: PinataPin[];
-  onBookmark: (id: string) => void;
-  onRecast: (id: string) => void;
-  onLike: (id: string) => void;
-  onComment: (id: string) => void;
 }
 
-export const Posts: React.FC<Props> = ({
-  posts,
-  onBookmark,
-  onRecast,
-  onLike,
-  onComment,
-}) => {
+export const Posts: React.FC<Props> = ({ posts }) => {
+  const todo = () => {
+    console.log("todo");
+  };
+
   return (
     <div className="flex min-h-96 w-full flex-col items-center gap-4">
       {posts.map((post) => (
@@ -40,10 +34,10 @@ export const Posts: React.FC<Props> = ({
           image={(post.metadata.keyvalues as any).featuredImage as string}
           likeCount={(post.metadata.keyvalues as any).likeCount as number}
           commentCount={(post.metadata.keyvalues as any).commentCount as number}
-          onBookmark={onBookmark}
-          onRecast={onRecast}
-          onLike={onLike}
-          onComment={onComment}
+          onBookmark={todo}
+          onRecast={todo}
+          onLike={todo}
+          onComment={todo}
         />
       ))}
     </div>
