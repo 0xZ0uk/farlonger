@@ -12,8 +12,11 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { reduceContent } from "@/lib/tiptap-helpers";
 import { useRouter } from "next/navigation";
+import { useProfile } from "@farcaster/auth-kit";
 
 export const Editor: React.FC = () => {
+  const { profile } = useProfile();
+
   const [body, setBody] = React.useState<JSONContent | undefined>(undefined);
   const router = useRouter();
 
@@ -22,11 +25,25 @@ export const Editor: React.FC = () => {
   }, []);
 
   const { mutate: create } = api.post.create.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast("success");
 
+      const title =
+        (body?.content![0]?.type === "heading"
+          ? reduceContent(body?.content[0].content)
+          : reduceContent(body?.content![1]?.content)) ?? "";
+
+      const message = encodeURI(
+        `${title} by "${profile?.displayName}" from `.concat("@farlonger"),
+      );
+
+      window.open(
+        `https://warpcast.com/~/compose?text=${message}&embeds[]=https://farlonger.xyz/cast/${data.cid}`,
+        "_blank",
+      );
+
       setTimeout(() => {
-        router.push("/");
+        router.push(`/cast/${data.cid}`);
       }, 1000);
     },
     onError: (error) => {
