@@ -56,11 +56,10 @@ export async function generateMetadata(
       description: subtitle,
       images: [
         {
-          url: `/api/og?title=${title}&description=${subtitle}`,
+          url: `https://www.farlonger.xyz/api/og?title=${title}&description=${subtitle}`,
           width: 1200,
           height: 630,
         },
-        image,
         ...previousImages,
       ],
     },
