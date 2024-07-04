@@ -8,8 +8,6 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export const dynamicParams = true;
-
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata,
@@ -62,12 +60,4 @@ export default async function Cast({ params, searchParams }: Props) {
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return [
-    {
-      cid: "QmZmKkxwhTn14BbNB1tLj6knTDJroHDpS2QpanHbBsjfZR",
-    },
-  ];
 }
