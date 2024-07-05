@@ -3,12 +3,17 @@
 import type { PinataPin } from "@pinata/sdk";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Posts } from "./posts";
+import { useEffect } from "react";
+import { api } from "@/trpc/react";
+import { useProfile } from "@farcaster/auth-kit";
 
 interface Props {
-  posts: PinataPin[];
+  forYou: PinataPin[];
 }
 
-export default function Main({ posts }: Props) {
+export default function Main({ forYou }: Props) {
+  const { profile } = useProfile();
+
   return (
     <Tabs defaultValue="for-you" className="w-full">
       <TabsList className="grid w-1/3 grid-cols-3">
@@ -21,7 +26,7 @@ export default function Main({ posts }: Props) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="for-you" className="w-full pb-28 pt-4">
-        <Posts posts={posts ?? []} />
+        <Posts posts={forYou ?? []} />
       </TabsContent>
       <TabsContent value="following"></TabsContent>
       <TabsContent value="featured"></TabsContent>

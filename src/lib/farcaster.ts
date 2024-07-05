@@ -13,3 +13,15 @@ export const getUserByFID = async (fid: string) => {
 
   return json.user;
 };
+
+export const getFollowing = async (fid: number) => {
+  const res = await fetch(
+    `https://client.warpcast.com/v2/following?fid=${fid}`,
+    {
+      method: "GET",
+    },
+  );
+  const json = await res.json();
+
+  return json;
+};
