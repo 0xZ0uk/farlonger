@@ -12,6 +12,7 @@ import {
 import { useProfile } from "@farcaster/auth-kit";
 import Image from "next/image";
 import { ChevronDown, LogOutIcon } from "lucide-react";
+import Link from "next/link";
 
 interface UserDataProps {
   fid?: number;
@@ -52,7 +53,9 @@ export const ProfileButton: React.FC<Props> = ({
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/profile/me">Profile</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Bookmarks</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           {!hideSignOut && (
