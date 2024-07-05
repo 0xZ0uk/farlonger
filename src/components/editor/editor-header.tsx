@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { Editor } from "@tiptap/react";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, RssIcon, XIcon } from "lucide-react";
 
 import {
   Popover,
@@ -10,8 +10,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "../ui/input";
+import { Badge } from "../ui/badge";
 
-export const EditorHeader: React.FC<{ editor: Editor }> = ({ editor }) => {
+interface Props {
+  editor: Editor;
+  channel?: string;
+  onSetChannel: (channel: string) => void;
+}
+
+export const EditorHeader: React.FC<Props> = ({
+  editor,
+  channel,
+  onSetChannel,
+}) => {
+  const [channelInput, setChannelInput] = React.useState("");
+
   const handleAddImage = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -28,6 +42,23 @@ export const EditorHeader: React.FC<{ editor: Editor }> = ({ editor }) => {
       }
     },
     [editor],
+  );
+
+  const handleChangeChannel = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChannelInput(e.target.value);
+    },
+    [setChannelInput],
+  );
+
+  const onEnter = React.useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // If enter key is pressed, set the channel
+      if (e.key === "Enter") {
+        onSetChannel(channelInput);
+      }
+    },
+    [channelInput, onSetChannel],
   );
 
   if (!editor) {
@@ -67,6 +98,37 @@ export const EditorHeader: React.FC<{ editor: Editor }> = ({ editor }) => {
             </Tabs>
           </PopoverContent>
         </Popover>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              size={"sm"}
+              className="gap-2 rounded-full"
+              disabled={channel !== ""}
+            >
+              <RssIcon className="h-4 w-4" />
+              Add Channel
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="w-[300px]">
+            <Input
+              placeholder="/channel"
+              className="w-full"
+              onChange={handleChangeChannel}
+              onKeyDown={onEnter}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className="mt-12">
+        {channel && (
+          <Badge
+            className="group cursor-pointer"
+            onClick={() => onSetChannel("")}
+          >
+            /{channel}
+            <XIcon className="h-0 w-0 opacity-0 transition-all group-hover:h-4 group-hover:w-4 group-hover:opacity-100" />
+          </Badge>
+        )}
       </div>
     </div>
   );

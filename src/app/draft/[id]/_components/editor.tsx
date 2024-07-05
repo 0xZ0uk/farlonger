@@ -16,6 +16,7 @@ import { useProfile } from "@farcaster/auth-kit";
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
+  const [channel, setChannel] = React.useState("");
 
   const [body, setBody] = React.useState<JSONContent | undefined>(undefined);
   const router = useRouter();
@@ -85,6 +86,7 @@ export const Editor: React.FC = () => {
           (body.content![0]?.type === "heading"
             ? reduceContent(body.content![1]?.content)
             : reduceContent(body.content![2]?.content)) ?? "",
+        channel,
       },
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       body: JSON.parse(JSON.stringify(body)),
@@ -99,7 +101,11 @@ export const Editor: React.FC = () => {
     <div className="flex w-full flex-col items-center justify-center gap-4 px-8 py-28 sm:px-12 lg:px-24">
       <section className="flex w-full gap-12">
         <div className="basis-3/4">
-          <TiptapEditor editor={editor} />
+          <TiptapEditor
+            editor={editor}
+            channel={channel}
+            onSetChannel={setChannel}
+          />
         </div>
         <div className="min-h-[calc(100vh-9rem-1px)] w-full basis-1/4 border-l pl-4">
           <div className="flex h-fit w-full flex-col gap-4 rounded-lg">
