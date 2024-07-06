@@ -26,6 +26,8 @@ export const env = createEnv({
     PINATA_GATEWAY_TOKEN: z.string(),
     PINATA_JWT_KEY: z.string(),
     FARLONGER_VERSION: z.string(),
+    FC_HUB_URL: z.string().url(),
+    FC_HUB_USE_TLS: z.string(),
   },
 
   /**
@@ -54,6 +56,8 @@ export const env = createEnv({
     PINATA_GATEWAY_TOKEN: process.env.PINATA_GATEWAY_TOKEN,
     PINATA_JWT_KEY: process.env.PINATA_JWT_KEY,
     FARLONGER_VERSION: process.env.FARLONGER_VERSION,
+    FC_HUB_URL: process.env.FC_HUB_URL,
+    FC_HUB_USE_TLS: process.env.FC_HUB_USE_TLS,
     NEXT_PUBLIC_FARCASTER_DOMAIN: process.env.NEXT_PUBLIC_FARCASTER_DOMAIN,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
       process.env.NEXT_PUBLIC_FARCASTER_RELAY_URL,
