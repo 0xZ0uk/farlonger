@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { Reader } from "./_components/reader";
 import { api } from "@/trpc/server";
-import { reduceContent } from "@/lib/tiptap-helpers";
+import { reduceContent } from "@/lib/helpers/tiptap";
 import { ReaderActions } from "./_components/reader-actions";
 
 type Props = {

@@ -34,7 +34,7 @@ export const postRouter = createTRPCRouter({
         },
       };
 
-      const pin = await ctx.pinata.pinJSONToIPFS(body, {
+      const pin = await ctx.ipfs.pinJSONToIPFS(body, {
         pinataMetadata: metadata,
       });
 
@@ -43,7 +43,7 @@ export const postRouter = createTRPCRouter({
       };
     }),
   getLatest: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.pinata.pinList({
+    const posts = await ctx.ipfs.pinList({
       pageLimit: 100,
       metadata: {
         keyvalues: {
@@ -60,7 +60,7 @@ export const postRouter = createTRPCRouter({
   getByUserFID: publicProcedure
     .input(z.object({ fid: z.string() }))
     .query(async ({ input, ctx }) => {
-      const posts = await ctx.pinata.pinList({
+      const posts = await ctx.ipfs.pinList({
         metadata: {
           keyvalues: {
             fid: {
@@ -81,7 +81,7 @@ export const postRouter = createTRPCRouter({
   getByChannel: publicProcedure
     .input(z.object({ channel: z.string() }))
     .query(async ({ input, ctx }) => {
-      const posts = await ctx.pinata.pinList({
+      const posts = await ctx.ipfs.pinList({
         pageLimit: 100,
         metadata: {
           keyvalues: {
@@ -100,7 +100,7 @@ export const postRouter = createTRPCRouter({
       return posts.rows;
     }),
   getMyPosts: protectedProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.pinata.pinList({
+    const posts = await ctx.ipfs.pinList({
       metadata: {
         keyvalues: {
           fid: {
@@ -128,7 +128,7 @@ export const postRouter = createTRPCRouter({
         },
       });
 
-      const metadata = await ctx.pinata.pinList({
+      const metadata = await ctx.ipfs.pinList({
         hashContains: input.cid,
         metadata: {
           keyvalues: {

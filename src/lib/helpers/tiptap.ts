@@ -1,4 +1,4 @@
-import { JSONContent } from "@tiptap/core";
+import type { JSONContent } from "@tiptap/core";
 
 export const reduceContent = (content: JSONContent[] | undefined) => {
   if (!content) {
@@ -12,4 +12,11 @@ export const reduceContent = (content: JSONContent[] | undefined) => {
 
     return acc;
   }, "");
+};
+
+export const readingTime = (characterCount: number) => {
+  const wordsPerMinute = 200;
+  const readingTime = Math.ceil(characterCount / wordsPerMinute);
+
+  return readingTime;
 };

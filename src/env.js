@@ -7,7 +7,9 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string(),
+    APP_FID: z.string(),
+    APP_MNEMONIC: z.string(),
+    // DATABASE_URL: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -26,7 +28,7 @@ export const env = createEnv({
     PINATA_GATEWAY_TOKEN: z.string(),
     PINATA_JWT_KEY: z.string(),
     FARLONGER_VERSION: z.string(),
-    FC_HUB_URL: z.string().url(),
+    FC_HUB_URL: z.string(),
     FC_HUB_USE_TLS: z.string(),
   },
 
@@ -48,7 +50,9 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    APP_FID: process.env.APP_FID,
+    APP_MNEMONIC: process.env.APP_MNEMONIC,
+    // DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,

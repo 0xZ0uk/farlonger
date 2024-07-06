@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { reduceContent } from "@/lib/tiptap-helpers";
+import { reduceContent } from "@/lib/helpers/tiptap";
 import { cn } from "@/lib/utils";
 import { ChevronRightIcon } from "lucide-react";
 

@@ -5,14 +5,14 @@ import { Document } from "@tiptap/extension-document";
 import { generateHTML } from "@tiptap/react";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { extensionsConfig } from "@/components/editor/config";
-import { reduceContent } from "@/lib/tiptap-helpers";
+import { reduceContent } from "@/lib/helpers/tiptap";
 import Image from "next/image";
 import { api } from "@/trpc/react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
 import { BookIcon } from "lucide-react";
-import { readingTime } from "@/lib/utils";
+import { readingTime } from "@/lib/helpers/tiptap";
 import { ReaderActions } from "./reader-actions";
 import { ReaderTOC } from "./reader-toc";
 

@@ -11,8 +11,9 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
-import { pinata } from "@/lib/pinata";
-import { db } from "@/server/db";
+
+import { sdk } from "@/lib/pinata/sdk";
+import { fdk } from "@/lib/pinata/fdk";
 
 /**
  * 1. CONTEXT
@@ -31,8 +32,8 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
 
   return {
     session,
-    pinata,
-    db,
+    ipfs: sdk,
+    fc: fdk,
     ...opts,
   };
 };

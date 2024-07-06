@@ -1,12 +1,12 @@
-import { ThemeProvider } from "@/components/theme/provider";
+import { ThemeProvider } from "@/components/layout/theme/provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AuthProvider from "@/components/auth/provider";
-import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
+import Header from "@/components/layout/header";
+import { mainMetadata } from "@/components/layout/metadata";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { TRPCReactProvider } from "@/trpc/react";
-import { mainMetadata } from "@/components/metadata";
 
 import "@/styles/globals.css";
 

@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TiptapEditor } from "@/components/editor";
 import { extensionsConfig, editorExtensions } from "@/components/editor/config";
-import { readingTime } from "@/lib/utils";
+import { readingTime } from "@/lib/helpers/tiptap";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
-import { reduceContent } from "@/lib/tiptap-helpers";
+import { reduceContent } from "@/lib/helpers/tiptap";
 import { useRouter } from "next/navigation";
 import { useProfile } from "@farcaster/auth-kit";
 

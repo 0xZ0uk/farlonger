@@ -1,12 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Profile() {
   const { profile } = useProfile();
+
+  const { data: following } = api.user.getFollowing.useQuery({
+    fid: profile?.fid ?? 1,
+  });
+
+  useEffect(() => {
+    console.log("following", following);
+  }, [following]);
 
   return (
     <main className="flex min-h-[calc(100vh-9rem-1px)] items-start justify-between p-8 pt-28 sm:px-12 lg:px-24">

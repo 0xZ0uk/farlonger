@@ -10,7 +10,7 @@ import { QRCodeDialog } from "./qrcode-dialog";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { ProfileButton } from "./profile-button";
-import { isMobile } from "@/lib/responsive";
+import { isMobile } from "@/lib/helpers/responsive";
 
 interface Props extends UseSignInArgs {
   onSignOut?: () => void;

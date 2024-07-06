@@ -1,7 +1,4 @@
-type FileLike = {
-  name: string;
-  stream: () => ReadableStream;
-};
+import type { FileLike } from "@/types/file";
 
 export function jsonToFileLike(json: object, fileName: string): FileLike {
   const jsonString = JSON.stringify(json);
