@@ -3,7 +3,7 @@
 import { Document } from "@tiptap/extension-document";
 
 import { generateHTML } from "@tiptap/react";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { extensionsConfig } from "@/components/editor/config";
 import { reduceContent } from "@/lib/helpers/tiptap";
 import Image from "next/image";
@@ -14,7 +14,6 @@ import { Separator } from "@/components/ui/separator";
 import { BookIcon } from "lucide-react";
 import { readingTime } from "@/lib/helpers/tiptap";
 import { ReaderActions } from "./reader-actions";
-import { ReaderTOC } from "./reader-toc";
 
 interface Props {
   post: any;
@@ -52,7 +51,7 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
     if (!post) return;
 
     const message = encodeURI(
-      `${title} by "${user?.display_name}" from `.concat("@farlonger"),
+      `${title} by "@${user?.username}" from `.concat("@farlonger"),
     );
 
     window.open(
@@ -87,14 +86,14 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <Image
-            src={user.pfp_url ?? "https://warpcast.com/avatar.png"}
-            alt={user.display_name}
+            src={user.pfp ?? "https://warpcast.com/avatar.png"}
+            alt={user.username}
             width={50}
             height={50}
             className="rounded-full"
           />
           <div>
-            <p className="text-sm font-bold">{user.display_name}</p>
+            <p className="text-sm font-bold">{user.username}</p>
             <div className="flex gap-2 text-sm">
               <Link
                 className="text-sm font-semibold text-primary"
