@@ -14,7 +14,6 @@ import { getServerAuthSession } from "@/server/auth";
 
 import { sdk } from "@/lib/pinata/sdk";
 import { fdk } from "@/lib/pinata/fdk";
-import { hub } from "@/lib/hub";
 
 /**
  * 1. CONTEXT
@@ -35,7 +34,6 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     session,
     ipfs: sdk,
     fc: fdk,
-    hub,
     ...opts,
   };
 };

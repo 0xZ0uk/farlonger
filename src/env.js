@@ -29,6 +29,7 @@ export const env = createEnv({
     PINATA_JWT_KEY: z.string(),
     FARLONGER_VERSION: z.string(),
     FC_HUB_URL: z.string(),
+    FC_HUB_HTTP: z.string(),
     FC_HUB_USE_TLS: z.string(),
   },
 
@@ -61,6 +62,7 @@ export const env = createEnv({
     PINATA_JWT_KEY: process.env.PINATA_JWT_KEY,
     FARLONGER_VERSION: process.env.FARLONGER_VERSION,
     FC_HUB_URL: process.env.FC_HUB_URL,
+    FC_HUB_HTTP: process.env.FC_HUB_HTTP,
     FC_HUB_USE_TLS: process.env.FC_HUB_USE_TLS,
     NEXT_PUBLIC_FARCASTER_DOMAIN: process.env.NEXT_PUBLIC_FARCASTER_DOMAIN,
     NEXT_PUBLIC_FARCASTER_RELAY_URL:
