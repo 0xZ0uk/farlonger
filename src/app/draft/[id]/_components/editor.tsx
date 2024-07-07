@@ -13,13 +13,41 @@ import { toast } from "sonner";
 import { reduceContent } from "@/lib/helpers/tiptap";
 import { useRouter } from "next/navigation";
 import { useProfile } from "@farcaster/auth-kit";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
   const [channel, setChannel] = React.useState("");
 
   const [body, setBody] = React.useState<JSONContent | undefined>(undefined);
+  const [tags, setTags] = React.useState<string[]>([]);
+  const [tagInput, setTagInput] = React.useState("");
+
   const router = useRouter();
+
+  const handleChangeTagInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTagInput(e.target.value);
+    },
+    [],
+  );
+
+  const handleAddTag = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        setTags((prevTags) => [...prevTags, tagInput]);
+        setTagInput("");
+      }
+
+      return;
+    },
+    [tagInput],
+  );
+
+  const handleRemoveTag = useCallback((tag: string) => {
+    setTags((prevTags) => prevTags.filter((t) => t !== tag));
+  }, []);
 
   const handleUpdate = useCallback((body: JSONContent) => {
     setBody(body);
@@ -87,6 +115,7 @@ export const Editor: React.FC = () => {
             ? reduceContent(body.content![1]?.content)
             : reduceContent(body.content![2]?.content)) ?? "",
         channel,
+        tags: tags.join(";"),
       },
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       body: JSON.parse(JSON.stringify(body)),
@@ -129,6 +158,27 @@ export const Editor: React.FC = () => {
                   )}{" "}
                   min
                 </p>
+              </div>
+            </div>
+            <Separator />
+            <div className="flex w-full flex-col items-start gap-1.5">
+              <p className="text-sm font-bold">Tags</p>
+              <Input
+                placeholder="Add a tag"
+                value={tagInput}
+                onChange={handleChangeTagInput}
+                onKeyDown={(e) => handleAddTag(e)}
+              />
+              <div className="mt-4 flex gap-2">
+                {tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    className="flex cursor-pointer gap-2 rounded-full"
+                    onClick={() => handleRemoveTag(tag)}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
               </div>
             </div>
           </div>

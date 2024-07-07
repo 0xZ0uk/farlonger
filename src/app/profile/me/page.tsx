@@ -11,17 +11,13 @@ import { useEffect } from "react";
 export default function Profile() {
   const { profile } = useProfile();
 
-  const { data: following } = api.user.getFollowingByFID.useQuery({
-    fid: profile?.fid ?? 1,
-  });
+  // const { data: following } = api.user.getFollowingByFID.useQuery({
+  //   fid: profile?.fid ?? 1,
+  // });
 
   const { data: posts } = api.post.getByUserFID.useQuery({
     fid: profile?.fid?.toString() ?? "1",
   });
-
-  useEffect(() => {
-    console.log("following", following);
-  }, [following]);
 
   return (
     <main className="flex min-h-[calc(100vh-9rem-1px)] items-start justify-between p-8 pt-28 sm:px-12 lg:px-24">
