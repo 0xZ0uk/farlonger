@@ -16,3 +16,5 @@ export const hubClient =
     : getInsecureHubRpcClient(env.FC_HUB_URL));
 
 if (env.NODE_ENV !== "production") globalForFarcaster.hubClient = hubClient;
+
+export const hub = hubClient.$;
