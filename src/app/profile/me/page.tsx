@@ -1,5 +1,6 @@
 "use client";
 
+import { Posts } from "@/app/_components/posts";
 import { Button } from "@/components/ui/button";
 import { api } from "@/trpc/react";
 import { useProfile } from "@farcaster/auth-kit";
@@ -10,8 +11,12 @@ import { useEffect } from "react";
 export default function Profile() {
   const { profile } = useProfile();
 
-  const { data: following } = api.user.getFollowing.useQuery({
+  const { data: following } = api.user.getFollowingByFID.useQuery({
     fid: profile?.fid ?? 1,
+  });
+
+  const { data: posts } = api.post.getByUserFID.useQuery({
+    fid: profile?.fid?.toString() ?? "1",
   });
 
   useEffect(() => {
@@ -22,9 +27,10 @@ export default function Profile() {
     <main className="flex min-h-[calc(100vh-9rem-1px)] items-start justify-between p-8 pt-28 sm:px-12 lg:px-24">
       <div className="absolute left-8 flex w-[calc(100%-4rem)] flex-col items-center justify-center gap-4 sm:left-12 md:w-[calc(100%-24rem-7rem)] lg:left-24 lg:w-[calc(100%-24rem-13rem)]">
         <div className="mt-12 w-full">
-          <h1 className="text-6xl font-bold">
+          <h1 className="mb-8 text-6xl font-bold">
             {profile?.displayName ?? "Display Name"}
           </h1>
+          <Posts posts={posts ?? []} />
         </div>
       </div>
       <div className="fixed right-8 hidden min-h-[calc(100vh-9rem-1px)] flex-col gap-4 border-l  border-muted pl-4 sm:right-12 sm:hidden sm:w-0 md:flex md:w-96 lg:right-24">

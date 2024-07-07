@@ -76,14 +76,14 @@ const PostItem: React.FC<PostItemProps> = ({
   onComment,
 }) => {
   const { data: user } = api.user.getUserByFID.useQuery({
-    fid,
+    fid: parseInt(fid),
   });
 
   const handleRecast = React.useCallback(() => {
     if (!user) return;
 
     const message = encodeURI(
-      `${title} by "${user?.display_name}" from `.concat("@farlonger"),
+      `${title} by "@${user?.username}" from `.concat("@farlonger"),
     );
 
     window.open(

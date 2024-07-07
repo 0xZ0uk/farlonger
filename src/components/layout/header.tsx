@@ -14,12 +14,12 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import React, { useCallback, useState } from "react";
 import { ModeToggle } from "./theme/mode-toggle";
-import { SearchBar } from "./search-bar";
-import { SignInButton } from "./auth/signin-button";
+import { SearchBar } from "@/components/search-bar";
+import { SignInButton } from "@/components/auth/signin-button";
 import { signIn, signOut, getCsrfToken } from "next-auth/react";
 import { useProfile, type StatusAPIResponse } from "@farcaster/auth-kit";
 import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { PencilLineIcon } from "lucide-react";
 
 export default function Header() {
@@ -139,7 +139,7 @@ export default function Header() {
           />
         </div>
       </div>
-      <hr className="bg-header-pattern dark:bg-header-pattern-dark h-px w-full border-0 bg-muted opacity-10" />
+      <hr className="h-px w-full border-0 bg-muted bg-header-pattern opacity-10 dark:bg-header-pattern-dark" />
     </header>
   );
 }
