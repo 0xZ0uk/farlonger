@@ -15,11 +15,11 @@ export const postRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const {
         body,
-        metadata: { title, channel, subtitle, featuredImage },
+        metadata: { title, channel, subtitle, featuredImage, tags },
       } = input;
 
       const metadata: PinataMetadata = {
-        name: "postMetadata",
+        name: title,
         // @ts-expect-error PinataMetadata type is wrong
         keyvalues: {
           title,
@@ -29,6 +29,7 @@ export const postRouter = createTRPCRouter({
           featuredImage,
           subtitle,
           version: env.FARLONGER_VERSION,
+          tags,
           commentCount: 0,
           likeCount: 0,
         },
