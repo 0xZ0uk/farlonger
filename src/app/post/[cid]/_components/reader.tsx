@@ -22,7 +22,7 @@ interface Props {
 
 export const Reader: React.FC<Props> = ({ post, cid }) => {
   const { data: user } = api.user.getUserByFID.useQuery({
-    fid: post.metadata.fid,
+    fid: parseInt(post.metadata.fid),
   });
 
   const render = post?.content.filter((_item: any, idx: number) => idx > 1);
@@ -51,7 +51,7 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
     if (!post) return;
 
     const message = encodeURI(
-      `${title} by "@${user?.username}" from `.concat("@farlonger"),
+      `${title} by "@${user?.username}" read at `.concat("@farlonger"),
     );
 
     window.open(

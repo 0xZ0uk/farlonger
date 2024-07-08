@@ -22,7 +22,6 @@ export const postRouter = createTRPCRouter({
         name: title,
         // @ts-expect-error PinataMetadata type is wrong
         keyvalues: {
-          title,
           channel: channel ?? "everyone",
           createdAt: new Date().toISOString(),
           fid: ctx.session.user.id,
