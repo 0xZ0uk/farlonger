@@ -9,6 +9,7 @@ export type Post = {
     subtitle?: string;
     featuredImage?: string;
     channel?: string;
+    tags?: string;
 
     createdAt: string; // ISO 8601 date
     updatedAt?: string; // ISO 8601 date
@@ -30,6 +31,7 @@ export const PostInputSchema = z.object({
     subtitle: z.string().optional(),
     featuredImage: z.string().optional(),
     channel: z.string().optional(),
+    tags: z.string().optional(),
   }),
 
   body: z.any(),

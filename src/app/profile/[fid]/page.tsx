@@ -2,11 +2,19 @@
 
 import { Posts } from "@/app/_components/posts";
 import { Button } from "@/components/ui/button";
+import { fetcher } from "@/lib/swr";
 import { api } from "@/trpc/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import useSWR from "swr";
 
 export default function ProfileByFID({ params }: { params: { fid: string } }) {
+  const { data, error, isLoading } = useSWR(
+    `/api/hub/following?fid=${params.fid}`,
+    fetcher,
+  );
+
   const { data: user } = api.user.getUserByFID.useQuery({
     fid: Number(params.fid) ?? 1,
   });
@@ -14,6 +22,10 @@ export default function ProfileByFID({ params }: { params: { fid: string } }) {
   const { data: posts } = api.post.getByUserFID.useQuery({
     fid: params.fid ?? 1,
   });
+
+  useEffect(() => {
+    console.log(data?.messages.map((m: any) => m.data.linkBody.targetFid));
+  }, [data]);
 
   return (
     <main className="flex min-h-[calc(100vh-9rem-1px)] items-start justify-between p-8 pt-28 sm:px-12 lg:px-24">
