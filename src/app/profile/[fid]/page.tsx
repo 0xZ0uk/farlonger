@@ -24,7 +24,7 @@ export default function ProfileByFID({ params }: { params: { fid: string } }) {
   });
 
   useEffect(() => {
-    console.log(data);
+    console.log(data?.messages.map((m: any) => m.data.linkBody.targetFid));
   }, [data]);
 
   return (
