@@ -31,7 +31,7 @@ export const Posts: React.FC<Props> = ({ posts }) => {
           key={post.id}
           id={post.ipfs_pin_hash}
           channel={(post.metadata.keyvalues as any).channel as string}
-          title={(post.metadata.keyvalues as any).title as string}
+          title={post.metadata.name as string}
           subtitle={(post.metadata.keyvalues as any).subtitle as string}
           image={(post.metadata.keyvalues as any).featuredImage as string}
           likeCount={(post.metadata.keyvalues as any).likeCount as number}
