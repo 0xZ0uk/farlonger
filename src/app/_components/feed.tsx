@@ -14,21 +14,18 @@ interface Props {
 
 export default function Feed({ forYou }: Props) {
   const { profile } = useProfile();
-  const [followedPosts, setFollowedPosts] = useState<any[]>([]);
 
-  const {
-    data: following,
-    error,
-    isLoading,
-  } = useSWR(`/api/hub/following?fid=${profile?.fid}`, fetcher);
+  // const [followedPosts, setFollowedPosts] = useState<any[]>([]);
 
-  useEffect(() => {
-    console.log(forYou);
-  }, [forYou]);
+  // const {
+  //   data: following,
+  //   error,
+  //   isLoading,
+  // } = useSWR(`/api/hub/following?fid=${profile?.fid}`, fetcher);
 
   return (
-    <Tabs defaultValue="for-you" className="w-full">
-      <TabsList className="grid w-1/3 grid-cols-3">
+    <Tabs defaultValue="recent" className="w-full">
+      <TabsList className="grid w-full grid-cols-3 md:w-1/3">
         <TabsTrigger value="recent">Recent</TabsTrigger>
         <TabsTrigger value="featured">Featured</TabsTrigger>
         <TabsTrigger value="following" disabled={!profile?.fid}>

@@ -52,8 +52,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed z-50 flex w-full flex-col justify-center bg-background">
-      <div className="flex h-20 items-center justify-between px-8 sm:px-12 lg:px-24">
+    <header className="fixed z-50 box-border flex w-full flex-col justify-center bg-background p-4 md:px-12 lg:px-24">
+      <div className="flex h-20 w-full items-center justify-between">
         <div className="flex w-full basis-1/3 justify-start">
           <Link href="/" legacyBehavior passHref>
             <div className="flex w-fit cursor-pointer items-center gap-2">
@@ -67,7 +67,7 @@ export default function Header() {
             </div>
           </Link>
         </div>
-        <div className="flex w-full basis-1/3 items-center justify-center">
+        <div className="hidden w-0 basis-0 items-center justify-center md:flex md:w-full md:basis-1/3">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -117,13 +117,15 @@ export default function Header() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex w-full basis-1/3 items-center justify-end gap-3">
-          <SearchBar
-            value=""
-            onChange={(value) => {
-              console.log(value);
-            }}
-          />
+        <div className="flex w-full basis-2/3 items-center justify-end gap-3 md:basis-1/3">
+          <div className="hidden md:flex">
+            <SearchBar
+              value=""
+              onChange={(value) => {
+                console.log(value);
+              }}
+            />
+          </div>
           <ModeToggle />
           {isAuthenticated && (
             <Button size="icon" onClick={handleNewDraft}>
@@ -139,6 +141,7 @@ export default function Header() {
           />
         </div>
       </div>
+
       <hr className="h-px w-full border-0 bg-muted bg-header-pattern opacity-10 dark:bg-header-pattern-dark" />
     </header>
   );
