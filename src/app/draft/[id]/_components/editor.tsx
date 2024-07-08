@@ -15,6 +15,15 @@ import { useRouter } from "next/navigation";
 import { useProfile } from "@farcaster/auth-kit";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ChevronUpIcon } from "lucide-react";
 
 export const Editor: React.FC = () => {
   const { profile } = useProfile();
@@ -127,18 +136,78 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 py-28 md:px-12 lg:px-24">
-      <section className="flex w-full gap-12">
-        <div className="basis-3/4">
-          <TiptapEditor
-            editor={editor}
-            channel={channel}
-            onSetChannel={setChannel}
-          />
-        </div>
-        <div className="min-h-[calc(100vh-9rem-1px)] w-full basis-1/4 border-l pl-4">
+    <Sheet>
+      <div className="flex min-h-screen w-full flex-col items-start justify-start gap-4 px-8 py-28 md:px-12 lg:px-24">
+        <section className="flex w-full flex-col gap-12 md:flex-row">
+          <div className="md:basis-3/4">
+            <TiptapEditor
+              editor={editor}
+              channel={channel}
+              onSetChannel={setChannel}
+            />
+          </div>
+          <div className="hidden h-0 w-full basis-1/4 md:block md:min-h-[calc(100vh-9rem-1px)] md:border-l md:pl-4">
+            <div className="flex h-fit w-full flex-col gap-4 rounded-lg">
+              <Button onClick={handleSubmit}>Cast</Button>
+              <Button variant="outline">Preview</Button>
+              <Separator />
+              <div className="flex w-full flex-col items-start gap-1.5">
+                <p className="text-sm font-bold">Word Counter</p>
+                <div className="bg-mute flex h-10 w-full items-center rounded-md border border-muted-foreground/10 p-2">
+                  <p className="text-base">
+                    {editor.storage.characterCount.characters()}
+                  </p>
+                </div>
+              </div>
+              <div className="flex w-full flex-col items-start gap-1.5">
+                <p className="text-sm font-bold">Reading Time</p>
+                <div className="bg-mute flex h-10 w-full items-center rounded-md border border-muted-foreground/10 p-2">
+                  <p className="text-base">
+                    {readingTime(
+                      editor.storage.characterCount.characters() as number,
+                    )}{" "}
+                    min
+                  </p>
+                </div>
+              </div>
+              <Separator />
+              <div className="flex w-full flex-col items-start gap-1.5">
+                <p className="text-sm font-bold">Tags</p>
+                <Input
+                  placeholder="Add a tag"
+                  value={tagInput}
+                  onChange={handleChangeTagInput}
+                  onKeyDown={(e) => handleAddTag(e)}
+                />
+                <div className="mt-4 flex gap-2">
+                  {tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      className="flex cursor-pointer gap-2 rounded-full"
+                      onClick={() => handleRemoveTag(tag)}
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="fixed bottom-16 left-0 flex w-screen items-center justify-between border-t p-4 md:hidden">
+            <Button onClick={handleSubmit}>Publish</Button>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="ghost" className="aspect-square">
+                <ChevronUpIcon className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+          </div>
+        </section>
+      </div>
+      <SheetContent side="bottom">
+        <SheetHeader>
+          <SheetTitle>Are you sure?</SheetTitle>
           <div className="flex h-fit w-full flex-col gap-4 rounded-lg">
-            <Button onClick={handleSubmit}>Cast</Button>
+            <Button onClick={handleSubmit}>Publish</Button>
             <Button variant="outline">Preview</Button>
             <Separator />
             <div className="flex w-full flex-col items-start gap-1.5">
@@ -182,8 +251,8 @@ export const Editor: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
   );
 };
