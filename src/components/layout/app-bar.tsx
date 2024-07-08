@@ -13,7 +13,7 @@ import {
 
 export const AppBar: React.FC = () => {
   return (
-    <div className="fixed bottom-0 flex h-20 w-full flex-row items-center justify-center border-t bg-background md:hidden md:h-0">
+    <div className="fixed bottom-0 flex h-16 w-full flex-row items-center justify-center border-t bg-background md:hidden md:h-0">
       <Button
         variant="ghost"
         size="icon"
