@@ -82,7 +82,7 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
           className="max-h-[650px] w-full max-w-[1200px] rounded-lg object-cover object-top"
         />
       )}
-      <h1 className="text-6xl font-bold">{title}</h1>
+      <h1 className="text-center text-6xl font-bold">{title}</h1>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <Image
@@ -111,8 +111,13 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
             </div>
           </div>
         </div>
-        <Separator orientation="vertical" className="mx-1 h-8 w-px bg-muted" />
-        <div>{format(new Date(post.metadata.createdAt), "MMMM dd, yyyy")}</div>
+        <Separator
+          orientation="vertical"
+          className="mx-1 hidden h-8 w-px bg-muted md:block"
+        />
+        <div className="hidden md:block">
+          {format(new Date(post.metadata.createdAt), "MMMM dd, yyyy")}
+        </div>
         <Separator orientation="vertical" className="mx-1 h-8 w-px bg-muted" />
         <div className="flex items-center gap-2">
           <BookIcon className="h-6 w-6" />
@@ -121,9 +126,12 @@ export const Reader: React.FC<Props> = ({ post, cid }) => {
           </p>
         </div>
       </div>
+      <div className="block text-center md:hidden">
+        {format(new Date(post.metadata.createdAt), "MMMM dd, yyyy")}
+      </div>
       <div
         dangerouslySetInnerHTML={{ __html: output }}
-        className="prose mx-auto w-2/3 max-w-[1200px] dark:prose-invert"
+        className="prose mx-auto max-w-[1200px] dark:prose-invert md:w-2/3"
       />
       <ReaderActions
         onRecast={handleRecast}

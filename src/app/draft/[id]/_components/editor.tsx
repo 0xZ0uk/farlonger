@@ -127,7 +127,7 @@ export const Editor: React.FC = () => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 py-28 sm:px-12 lg:px-24">
+    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 py-28 md:px-12 lg:px-24">
       <section className="flex w-full gap-12">
         <div className="basis-3/4">
           <TiptapEditor

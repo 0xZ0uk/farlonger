@@ -35,7 +35,7 @@ export const ReaderActions: React.FC<Props> = ({
   onRecast,
 }) => {
   return (
-    <div className="fixed bottom-8 flex h-16 w-fit items-center justify-start gap-3 rounded-lg border  bg-muted px-3">
+    <div className="fixed bottom-20 flex h-16 w-full items-center justify-start gap-3 rounded-none border border-b-0 bg-muted px-3 md:bottom-8 md:w-fit  md:rounded-lg md:border-b">
       <Button className="gap-2" onClick={onRecast}>
         <Image src="/farcaster.svg" width={15} height={15} alt="Recast" />
         Recast

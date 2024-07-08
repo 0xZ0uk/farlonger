@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { TRPCReactProvider } from "@/trpc/react";
 
 import "@/styles/globals.css";
+import { AppBar } from "@/components/layout/app-bar";
 
 export const metadata = mainMetadata;
 
@@ -21,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-w-screen min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -33,9 +34,8 @@ export default function RootLayout({
         >
           <AuthProvider>
             <Header />
-            <TRPCReactProvider>
-              <div className="flex w-full justify-center">{children}</div>
-            </TRPCReactProvider>
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <AppBar />
             <Toaster />
           </AuthProvider>
         </ThemeProvider>

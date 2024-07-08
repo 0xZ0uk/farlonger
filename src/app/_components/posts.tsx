@@ -93,8 +93,8 @@ const PostItem: React.FC<PostItemProps> = ({
   }, [user, id, title]);
 
   return (
-    <div className="flex h-80 w-full items-center overflow-hidden rounded-lg border border-muted">
-      <div className="flex h-full w-full basis-1/2 flex-col items-start justify-between p-6">
+    <div className="flex w-full flex-col-reverse items-center overflow-hidden rounded-lg border border-muted md:h-80 md:flex-row">
+      <div className="flex h-full w-full flex-col items-start justify-between p-6 md:basis-1/2">
         <Link href={`/channel/${channel}`}>
           <div className="h-fit w-fit cursor-pointer rounded-sm bg-muted px-2 py-1 text-xs text-foreground/80 hover:bg-primary">
             /{channel}
@@ -111,7 +111,7 @@ const PostItem: React.FC<PostItemProps> = ({
             .trim()
             .concat(subtitle?.length > 100 ? "..." : "")}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="mt-2 flex items-center gap-2 md:mt-0">
           <Button className="gap-1" size="sm" onClick={handleRecast}>
             <RefreshCcwIcon className="h-3.5 w-3.5" /> Recast
           </Button>
@@ -139,16 +139,16 @@ const PostItem: React.FC<PostItemProps> = ({
           </Button>
         </div>
       </div>
-      <div className="flex w-full basis-1/2 justify-end">
+      <div className="flex w-full justify-end md:basis-1/2">
         {!!image && (
-          <div className="h-80 min-w-96 cursor-pointer overflow-hidden rounded-r-lg bg-muted bg-center">
+          <div className="h-80 min-w-96 cursor-pointer overflow-hidden rounded-t-lg bg-muted bg-center md:h-80 md:rounded-r-lg md:rounded-t-none">
             <Link href={`/post/${id}`}>
               <Image
                 src={image}
                 alt={title}
                 width={1080}
                 height={1080}
-                className="h-full w-full  object-cover"
+                className="aspect-video h-full w-full object-cover md:aspect-auto"
               />
             </Link>
           </div>

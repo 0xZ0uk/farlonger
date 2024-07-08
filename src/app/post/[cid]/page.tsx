@@ -55,7 +55,7 @@ export default async function Cast({ params, searchParams }: Props) {
   });
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 pt-28 sm:px-12 lg:px-24">
+    <div className="flex w-full flex-col items-center justify-center gap-4 px-8 pt-28 md:px-12 lg:px-24">
       <div className="w-full pt-8">
         <Reader post={post} cid={params.cid} />
       </div>
