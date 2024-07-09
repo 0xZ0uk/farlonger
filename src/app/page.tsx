@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/sidebar";
 import { api } from "@/trpc/react";
 import Feed from "./_components/feed";
 
-export default async function Home() {
+export default function Home() {
   const { data: recent, isLoading: isRecentLoading } =
     api.post.getLatest.useQuery();
   const { data: featured, isLoading: isFeaturedLoading } =
