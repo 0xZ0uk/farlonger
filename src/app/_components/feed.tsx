@@ -4,24 +4,14 @@ import type { PinataPin } from "@pinata/sdk";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Posts } from "./posts";
 import { useProfile } from "@farcaster/auth-kit";
-import { fetcher } from "@/lib/swr";
-import useSWR from "swr";
-import { useEffect, useState } from "react";
 
 interface Props {
-  forYou: PinataPin[];
+  recent: PinataPin[];
+  featured: PinataPin[];
 }
 
-export default function Feed({ forYou }: Props) {
+export default function Feed({ recent, featured }: Props) {
   const { profile } = useProfile();
-
-  // const [followedPosts, setFollowedPosts] = useState<any[]>([]);
-
-  // const {
-  //   data: following,
-  //   error,
-  //   isLoading,
-  // } = useSWR(`/api/hub/following?fid=${profile?.fid}`, fetcher);
 
   return (
     <Tabs defaultValue="recent" className="w-full">
@@ -33,13 +23,13 @@ export default function Feed({ forYou }: Props) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="recent" className="w-full pb-28 pt-4">
-        <Posts posts={forYou ?? []} />
+        <Posts posts={recent ?? []} />
       </TabsContent>
-      <TabsContent value="featured">
-        <Posts posts={forYou ?? []} />
+      <TabsContent value="featured" className="w-full pb-28 pt-4">
+        <Posts posts={featured ?? []} />
       </TabsContent>
-      <TabsContent value="following">
-        <Posts posts={forYou ?? []} />
+      <TabsContent value="following" className="w-full pb-28 pt-4">
+        <Posts posts={[]} />
       </TabsContent>
     </Tabs>
   );
