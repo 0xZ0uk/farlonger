@@ -23,7 +23,6 @@ export default function Feed({ recent, featured }: Props) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="recent" className="w-full pb-28 pt-4">
-<<<<<<< HEAD
         <Posts posts={recent ?? []} />
       </TabsContent>
       <TabsContent value="featured" className="w-full pb-28 pt-4">
@@ -31,15 +30,6 @@ export default function Feed({ recent, featured }: Props) {
       </TabsContent>
       <TabsContent value="following" className="w-full pb-28 pt-4">
         <Posts posts={[]} />
-=======
-        <Posts posts={forYou ?? []} loading={loading ?? false} />
-      </TabsContent>
-      <TabsContent value="featured">
-        <Posts posts={forYou ?? []} loading={loading ?? false} />
-      </TabsContent>
-      <TabsContent value="following">
-        <Posts posts={forYou ?? []} loading={loading ?? false} />
->>>>>>> develop
       </TabsContent>
     </Tabs>
   );
