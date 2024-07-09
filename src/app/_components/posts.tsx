@@ -13,34 +13,46 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import type { PinataPin } from "@pinata/sdk";
 import { api } from "@/trpc/react";
+import { PostSkeleton } from "@/components/skeletons/post-skeleton";
 
 interface Props {
   posts: PinataPin[];
+  loading?: boolean;
 }
 
-export const Posts: React.FC<Props> = ({ posts }) => {
+export const Posts: React.FC<Props> = ({ posts, loading }) => {
   const todo = () => {
     console.log("todo");
   };
 
   return (
     <div className="flex min-h-96 w-full flex-col items-center gap-4">
-      {posts.map((post) => (
-        <PostItem
-          fid={(post.metadata.keyvalues as any).fid as string}
-          key={post.id}
-          id={post.ipfs_pin_hash}
-          channel={(post.metadata.keyvalues as any).channel as string}
-          title={post.metadata.name as string}
-          subtitle={(post.metadata.keyvalues as any).subtitle as string}
-          image={(post.metadata.keyvalues as any).featuredImage as string}
-          likeCount={(post.metadata.keyvalues as any).likeCount as number}
-          commentCount={(post.metadata.keyvalues as any).commentCount as number}
-          onBookmark={todo}
-          onLike={todo}
-          onComment={todo}
-        />
-      ))}
+      {!loading ? (
+        posts.map((post) => (
+          <PostItem
+            fid={(post.metadata.keyvalues as any).fid as string}
+            key={post.id}
+            id={post.ipfs_pin_hash}
+            channel={(post.metadata.keyvalues as any).channel as string}
+            title={post.metadata.name as string}
+            subtitle={(post.metadata.keyvalues as any).subtitle as string}
+            image={(post.metadata.keyvalues as any).featuredImage as string}
+            likeCount={(post.metadata.keyvalues as any).likeCount as number}
+            commentCount={
+              (post.metadata.keyvalues as any).commentCount as number
+            }
+            onBookmark={todo}
+            onLike={todo}
+            onComment={todo}
+          />
+        ))
+      ) : (
+        <>
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+        </>
+      )}
     </div>
   );
 };
