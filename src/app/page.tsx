@@ -1,5 +1,7 @@
+"use client";
+
 import { Sidebar } from "@/components/sidebar";
-import { api } from "@/trpc/server";
+import { api } from "@/trpc/react";
 import Feed from "./_components/feed";
 
 export default async function Home() {
